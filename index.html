@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>x402agent — AI Agent Services Powered by x402</title>
+<meta name="description" content="Pay-per-query APIs built for AI agents. Company intelligence, SEO tools, and more — all powered by the x402 micropayment protocol. No API keys, no subscriptions.">
+<link rel="canonical" href="https://x402agent.no/">
+<meta property="og:title" content="x402agent — AI Agent Services">
+<meta property="og:description" content="Pay-per-query APIs built for AI agents. Powered by x402 micropayments on Base.">
+<meta property="og:url" content="https://x402agent.no/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;
+  --text:#e2e2e8;--muted:#8888a0;--accent:#6366f1;
+  --accent2:#818cf8;--green:#22c55e;--amber:#f59e0b;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+
+.container{max-width:960px;margin:0 auto;padding:0 24px}
+
+/* Hero */
+.hero{text-align:center;padding:80px 0 60px}
+.hero h1{font-size:48px;font-weight:700;letter-spacing:-1px;margin-bottom:16px}
+.hero h1 span{color:var(--accent)}
+.hero p{font-size:20px;color:var(--muted);max-width:600px;margin:0 auto 32px}
+.badge-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:500;background:var(--surface);border:1px solid var(--border);color:var(--muted)}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+
+/* Products */
+.products{padding:40px 0 60px}
+.products h2{text-align:center;font-size:28px;margin-bottom:40px;color:var(--text)}
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.product{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;transition:border-color .2s}
+.product:hover{border-color:var(--accent)}
+.product-tag{display:inline-block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:4px 10px;border-radius:6px;margin-bottom:16px}
+.product-tag.live{background:rgba(34,197,94,.15);color:var(--green)}
+.product-tag.soon{background:rgba(245,158,11,.15);color:var(--amber)}
+.product h3{font-size:22px;margin-bottom:8px}
+.product h3 a{color:var(--text)}
+.product h3 a:hover{color:var(--accent2)}
+.product p{color:var(--muted);font-size:15px;margin-bottom:16px}
+.product-meta{display:flex;gap:16px;flex-wrap:wrap}
+.product-meta span{font-size:13px;color:var(--muted)}
+.product-meta strong{color:var(--text)}
+
+/* How it works */
+.how{padding:40px 0 60px;border-top:1px solid var(--border)}
+.how h2{text-align:center;font-size:28px;margin-bottom:40px}
+.steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.step{text-align:center;padding:24px}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--accent);color:white;font-weight:700;font-size:18px;margin-bottom:16px}
+.step h4{font-size:16px;margin-bottom:8px}
+.step p{color:var(--muted);font-size:14px}
+
+/* Protocol */
+.protocol{padding:40px 0 60px;border-top:1px solid var(--border);text-align:center}
+.protocol h2{font-size:28px;margin-bottom:16px}
+.protocol p{color:var(--muted);max-width:600px;margin:0 auto 24px;font-size:16px}
+.code-block{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 24px;text-align:left;font-family:'SF Mono',Monaco,monospace;font-size:13px;max-width:600px;margin:0 auto;overflow-x:auto;color:var(--muted)}
+.code-block .comment{color:#555}
+.code-block .url{color:var(--accent2)}
+.code-block .status{color:var(--green)}
+
+/* Footer */
+footer{border-top:1px solid var(--border);padding:40px 0;text-align:center;color:var(--muted);font-size:14px}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--text)}
+
+@media(max-width:700px){
+  .hero h1{font-size:32px}
+  .hero p{font-size:17px}
+  .product-grid,.steps{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <section class="hero">
+    <h1><span>x402</span>agent</h1>
+    <p>Pay-per-query APIs built for AI agents. No API keys, no subscriptions — just micropayments on Base.</p>
+    <div class="badge-row">
+      <span class="badge"><span class="dot"></span> x402 Protocol</span>
+      <span class="badge">USDC on Base</span>
+      <span class="badge">No Accounts Needed</span>
+      <span class="badge">From $0.01/query</span>
+    </div>
+  </section>
+
+  <section class="products">
+    <h2>Services</h2>
+    <div class="product-grid">
+
+      <div class="product">
+        <span class="product-tag live">Live</span>
+        <h3><a href="https://norwegian-companies-house.fly.dev/">Norwegian Companies House</a></h3>
+        <p>Look up any of 500,000+ Norwegian companies — board members, CEO, financials, industry codes. Data from Brønnøysundregistrene.</p>
+        <div class="product-meta">
+          <span>From <strong>$0.01</strong>/query</span>
+          <span><strong>3</strong> endpoints</span>
+          <span>USDC on Base</span>
+        </div>
+      </div>
+
+      <div class="product">
+        <span class="product-tag live">Live</span>
+        <h3><a href="https://bhrefs.com/">bhrefs — SEO Tools</a></h3>
+        <p>Backlink discovery, competitive gap analysis, and email enrichment for AI agents. Powered by Common Crawl data.</p>
+        <div class="product-meta">
+          <span>From <strong>$0.05</strong>/query</span>
+          <span><strong>5</strong> endpoints</span>
+          <span>USDC on Base</span>
+        </div>
+      </div>
+
+      <div class="product">
+        <span class="product-tag soon">Coming Soon</span>
+        <h3>More Services</h3>
+        <p>We're building more pay-per-query APIs for AI agents. Have an idea? Get in touch.</p>
+        <div class="product-meta">
+          <span>x402 protocol</span>
+          <span>USDC micropayments</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="how">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Request</h4>
+        <p>Your AI agent sends a GET request to any paid endpoint</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Pay</h4>
+        <p>The server returns HTTP 402. Your agent signs a USDC micropayment on Base</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Receive</h4>
+        <p>Resend with payment header — get structured data instantly</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="protocol">
+    <h2>x402 Protocol</h2>
+    <p>The open standard for HTTP micropayments. Your agent pays per query with USDC — no API keys, no rate limits, no vendor lock-in.</p>
+    <div class="code-block">
+<span class="comment"># 1. Request data</span>
+curl <span class="url">https://norwegian-companies-house.fly.dev/company/923609016</span>
+<span class="comment"># → 402 Payment Required</span>
+
+<span class="comment"># 2. Agent pays $0.01 USDC, retries with payment header</span>
+<span class="status"># → 200 OK</span>
+{"name":"EQUINOR ASA","type":"ASA","employees":21376, ...}
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 x402agent.no &middot; <a href="https://x402.org">x402 Protocol</a> &middot; USDC on <a href="https://base.org">Base</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
