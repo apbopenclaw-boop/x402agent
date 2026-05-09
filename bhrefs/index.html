@@ -41,14 +41,15 @@ nav .logo span{color:var(--accent)}
 nav .nav-links{display:flex;gap:32px;align-items:center}
 nav .nav-links a{font-size:14px;font-weight:500;color:var(--muted);transition:color .15s}
 nav .nav-links a:hover{color:var(--text)}
-nav .nav-cta{background:var(--accent);color:white;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;transition:background .15s}
-nav .nav-cta:hover{background:#5558e6;color:white}
+nav .nav-cta{background:var(--accent);color:#fff;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;transition:background .15s;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+nav .nav-cta:hover{background:#5558e6;color:#fff}
 
 /* ─── Hero ─── */
 .hero{position:relative;padding:160px 0 100px;overflow:hidden;text-align:center}
 .hero-bg{position:absolute;inset:0;z-index:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.35}
-.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,14,.3) 0%,rgba(7,7,14,.85) 60%,var(--bg) 100%)}
+.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease-in-out}
+.hero-bg img.active{opacity:.35}
+.hero-bg::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(7,7,14,.3) 0%,rgba(7,7,14,.85) 60%,var(--bg) 100%)}
 .hero .container{position:relative;z-index:1}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:24px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;background:var(--accent-glow);border:1px solid rgba(99,102,241,.25);color:var(--accent2);margin-bottom:32px}
 .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
@@ -118,7 +119,7 @@ nav .nav-cta:hover{background:#5558e6;color:white}
 .form-group input,.form-group textarea{width:100%;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;color:var(--text);outline:none;transition:border-color .2s}
 .form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
 .form-group textarea{resize:vertical;min-height:120px}
-.form-submit{width:100%;padding:14px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s}
+.form-submit{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:background .15s;text-shadow:0 1px 2px rgba(0,0,0,.3);letter-spacing:.3px}
 .form-submit:hover{background:#5558e6}
 
 /* ─── Footer ─── */

@@ -62,14 +62,15 @@ nav .logo span{color:var(--accent)}
 nav .nav-links{display:flex;gap:32px;align-items:center}
 nav .nav-links a{font-size:14px;font-weight:500;color:var(--muted);transition:color .15s}
 nav .nav-links a:hover{color:var(--text)}
-nav .nav-cta{background:var(--accent);color:white;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;transition:background .15s}
-nav .nav-cta:hover{background:#5558e6;color:white}
+nav .nav-cta{background:var(--accent);color:#fff;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;transition:background .15s;text-shadow:0 1px 2px rgba(0,0,0,.2)}
+nav .nav-cta:hover{background:#5558e6;color:#fff}
 
 /* ─── Hero ─── */
 .hero{position:relative;padding:160px 0 100px;overflow:hidden;text-align:center}
 .hero-bg{position:absolute;inset:0;z-index:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.35}
-.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,14,.3) 0%,rgba(7,7,14,.85) 60%,var(--bg) 100%)}
+.hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease-in-out}
+.hero-bg img.active{opacity:.35}
+.hero-bg::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(7,7,14,.3) 0%,rgba(7,7,14,.85) 60%,var(--bg) 100%)}
 .hero .container{position:relative;z-index:1}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:24px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;background:var(--accent-glow);border:1px solid rgba(99,102,241,.25);color:var(--accent2);margin-bottom:32px}
 .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
@@ -139,7 +140,7 @@ nav .nav-cta:hover{background:#5558e6;color:white}
 .form-group input,.form-group textarea{width:100%;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;color:var(--text);outline:none;transition:border-color .2s}
 .form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
 .form-group textarea{resize:vertical;min-height:120px}
-.form-submit{width:100%;padding:14px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s}
+.form-submit{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:background .15s;text-shadow:0 1px 2px rgba(0,0,0,.3);letter-spacing:.3px}
 .form-submit:hover{background:#5558e6}
 
 /* ─── Footer ─── */
@@ -258,11 +259,11 @@ def build_index(services):
 <html lang="en">
 <head>
 {HEAD_COMMON}
-<title>x402agent — AI Agent APIs for Norway &amp; SEO Intelligence</title>
-<meta name="description" content="Pay-per-query APIs built for AI agents. Norwegian company data, SEO backlink tools, and more — powered by x402 micropayments. No API keys, no subscriptions.">
+<title>x402agent — Norway's AI Agent API Gateway</title>
+<meta name="description" content="Pay-per-query APIs for AI agents — Norwegian company data, board members, financials, SEO backlink tools, and Nordic business intelligence. Powered by x402 micropayments. No API keys needed.">
 <link rel="canonical" href="{DOMAIN}/">
-<meta property="og:title" content="x402agent — AI Agent APIs">
-<meta property="og:description" content="Pay-per-query APIs for AI agents. Norwegian company intelligence, SEO tools, and more. Powered by x402 micropayments on Base.">
+<meta property="og:title" content="x402agent — Norway's AI Agent API Gateway">
+<meta property="og:description" content="Norwegian company data, SEO tools, and Nordic business intelligence for AI agents. Pay-per-query with x402 micropayments on Base.">
 <meta property="og:url" content="{DOMAIN}/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -290,12 +291,14 @@ def build_index(services):
 
 <section class="hero">
   <div class="hero-bg">
-    <img src="/hero-bg.webp" alt="" width="1536" height="1024" loading="eager">
+    <img src="/hero-norway-1.webp" alt="Norwegian fjord landscape" class="active" loading="eager">
+    <img src="/hero-norway-2.webp" alt="Norwegian coastal city" loading="lazy">
+    <img src="/hero-norway-3.webp" alt="Norwegian offshore platform" loading="lazy">
   </div>
   <div class="container">
     <div class="hero-badge"><span class="dot"></span> Powered by x402 Protocol</div>
-    <h1>The API gateway<br>for AI agents</h1>
-    <p>Norway-specific company data, SEO intelligence, and more. Pay per query with USDC — no keys, no accounts, no subscriptions.</p>
+    <h1>Norway's API gateway<br>for AI agents</h1>
+    <p>Norwegian company intelligence, SEO data, and Nordic business insights. Pay per query with USDC — no keys, no accounts, no subscriptions.</p>
     <div class="search-box">
       {SEARCH_ICON}
       <input type="text" placeholder="Try: Look up Equinor board members..." id="agent-search" autocomplete="off">
@@ -332,7 +335,7 @@ def build_index(services):
 <div id="services">
   <div class="section-header">
     <h2>Services</h2>
-    <p>Each service is a standalone API that any x402-compatible agent can pay for and use instantly.</p>
+    <p>Norwegian data and intelligence APIs that any x402-compatible agent can pay for and use instantly.</p>
   </div>
   <div class="container">
     <div class="product-grid">
@@ -383,7 +386,7 @@ $ {ex_req}
 <section class="contact" id="contact">
   <div class="container">
     <h2>Get in Touch</h2>
-    <p>Want to integrate x402 payments, suggest a new API, or just say hello?</p>
+    <p>Want to integrate x402 payments, suggest a new Norwegian data API, or just say hello?</p>
     <form action="{FORM_ACTION}" method="POST">
       <div class="form-group">
         <label for="name">Name</label>
@@ -406,6 +409,19 @@ $ {ex_req}
 </section>
 
 {FOOTER}
+
+<script>
+(function(){{
+  var imgs=document.querySelectorAll('.hero-bg img');
+  if(imgs.length<2)return;
+  var i=0;
+  setInterval(function(){{
+    imgs[i].classList.remove('active');
+    i=(i+1)%imgs.length;
+    imgs[i].classList.add('active');
+  }},5000);
+}})()
+</script>
 
 </body>
 </html>"""
