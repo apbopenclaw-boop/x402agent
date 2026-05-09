@@ -295,11 +295,11 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
 <section class="stats">
   <div class="container">
     <div class="stat">
-      <div class="stat-value">3</div>
+      <div class="stat-value">6</div>
       <div class="stat-label">Live services</div>
     </div>
     <div class="stat">
-      <div class="stat-value">10</div>
+      <div class="stat-value">19</div>
       <div class="stat-label">API endpoints</div>
     </div>
     <div class="stat">
@@ -351,32 +351,32 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
         </div>
       </div>
       <div class="product">
-        <span class="product-tag soon">Coming Soon</span>
-        <h3><a href="#">Norwegian Statistics &amp; Economics</a></h3>
-        <p>Economic and demographic data for Norway — exchange rates from Norges Bank, population statistics, CPI, and GDP from Statistics Norway (SSB). Pay per query with USDC via x402.</p>
+        <span class="product-tag live">Live</span>
+        <h3><a href="/norway-statistics/">Norwegian Statistics &amp; Economics</a></h3>
+        <p>Economic and demographic data for Norway — population by municipality, Consumer Price Index (CPI), and quarterly GDP from Statistics Norway (SSB). Pay per query with USDC via x402.</p>
         <div class="product-meta">
-          <span>From <strong>TBD</strong>/query</span>
-          <span><strong>0</strong> endpoints</span>
+          <span>From <strong>$0.01</strong>/query</span>
+          <span><strong>3</strong> endpoints</span>
           <span>USDC on Base</span>
         </div>
       </div>
       <div class="product">
-        <span class="product-tag soon">Coming Soon</span>
-        <h3><a href="#">Norwegian Property &amp; Address</a></h3>
-        <p>Norwegian address lookup, geocoding, elevation profiles, and property registry data. Powered by Kartverket (Norwegian Mapping Authority). Pay per query with USDC via x402.</p>
+        <span class="product-tag live">Live</span>
+        <h3><a href="/norway-property/">Norwegian Property &amp; Address</a></h3>
+        <p>Norwegian address lookup, elevation data, and cadastral property registry. Powered by Kartverket (Norwegian Mapping Authority). Pay per query with USDC via x402.</p>
         <div class="product-meta">
-          <span>From <strong>TBD</strong>/query</span>
-          <span><strong>0</strong> endpoints</span>
+          <span>From <strong>$0.005</strong>/query</span>
+          <span><strong>3</strong> endpoints</span>
           <span>USDC on Base</span>
         </div>
       </div>
       <div class="product">
-        <span class="product-tag soon">Coming Soon</span>
-        <h3><a href="#">Norwegian IP Search</a></h3>
+        <span class="product-tag live">Live</span>
+        <h3><a href="/norway-patent-search/">Norwegian IP Search</a></h3>
         <p>Search Norwegian trademarks, patents, and industrial designs. Data from Patentstyret (Norwegian Industrial Property Office). Pay per query with USDC via x402.</p>
         <div class="product-meta">
-          <span>From <strong>TBD</strong>/query</span>
-          <span><strong>0</strong> endpoints</span>
+          <span>From <strong>$0.01</strong>/query</span>
+          <span><strong>3</strong> endpoints</span>
           <span>USDC on Base</span>
         </div>
       </div>
@@ -502,6 +502,36 @@ var services=[
      if(/marine|wave|sea/i.test(q)){desc='Marine forecast for Norwegian waters';endpoint='GET /marine?lat=...&lon=...'}
      else if(/alert/i.test(q)){desc='Active weather alerts for Norway';endpoint='GET /alerts'}
      else{desc='Weather forecast for any Norwegian location';endpoint='GET /forecast?location=...'}
+     return{endpoint:endpoint,desc:desc}
+   }},
+  {id:'stats',name:'Norwegian Statistics & Economics',icon:'📊',cls:'nch',
+   keywords:['population','cpi','inflation','gdp','economy','economics','statistics','ssb','municipality','demographics','price index','growth','inhabitants','kommune'],
+   url:'/norway-statistics/',
+   match:function(q){
+     var endpoint='',desc='';
+     if(/cpi|inflation|price index/i.test(q)){desc='Consumer Price Index and inflation data';endpoint='GET /cpi'}
+     else if(/gdp|growth|economy/i.test(q)){desc='Quarterly GDP from SSB national accounts';endpoint='GET /gdp'}
+     else{desc='Population data by Norwegian municipality';endpoint='GET /population?municipality=...'}
+     return{endpoint:endpoint,desc:desc}
+   }},
+  {id:'property',name:'Norwegian Property & Address',icon:'🏠',cls:'aurora',
+   keywords:['property','address','elevation','cadastre','matrikkel','kartverket','gnr','bnr','kommune','land','plot','building','height','altitude','coordinates','geocode'],
+   url:'/norway-property/',
+   match:function(q){
+     var endpoint='',desc='';
+     if(/elevation|height|altitude/i.test(q)){desc='Elevation data from Kartverket DTM';endpoint='GET /elevation?lat=...&lon=...'}
+     else if(/property|cadastre|matrikkel|gnr|bnr/i.test(q)){desc='Cadastral property lookup';endpoint='GET /property?knr=...&gnr=...&bnr=...'}
+     else{desc='Norwegian address lookup';endpoint='GET /address?q=...'}
+     return{endpoint:endpoint,desc:desc}
+   }},
+  {id:'patent',name:'Norwegian IP Search',icon:'⚖️',cls:'bhrefs',
+   keywords:['trademark','patent','design','intellectual property','ip','patentstyret','brand','mark','invention','nice class','ipc'],
+   url:'/norway-patent-search/',
+   match:function(q){
+     var endpoint='',desc='';
+     if(/trademark|brand|mark/i.test(q)){desc='Search Norwegian trademark registry';endpoint='GET /trademark/search?q=...'}
+     else if(/design/i.test(q)){desc='Search Norwegian industrial designs';endpoint='GET /design/search?q=...'}
+     else{desc='Search Norwegian patent registry';endpoint='GET /patent/search?q=...'}
      return{endpoint:endpoint,desc:desc}
    }}
 ];

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Norwegian Statistics &amp; Economics — x402agent</title>
+<meta name="description" content="Population, CPI, and GDP data from Statistics Norway (SSB). Pay per query with USDC via x402.">
+<link rel="canonical" href="https://x402agent.no/norway-statistics/">
+<meta property="og:title" content="Norwegian Statistics & Economics — x402agent">
+<meta property="og:description" content="Population, CPI, and GDP data from Statistics Norway (SSB). Pay per query with USDC via x402.">
+<meta property="og:url" content="https://x402agent.no/norway-statistics/">
+<meta property="og:type" content="website">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#07070e;--surface:#0e0e1a;--surface2:#141422;--border:#1a1a2e;--border2:#252540;--text:#eaeaf0;--text2:#c8c8d8;--muted:#6e6e8a;--accent:#6366f1;--accent2:#818cf8;--accent-glow:rgba(99,102,241,.12);--green:#22c55e;--green-dim:rgba(34,197,94,.15);--radius:12px;--radius-lg:16px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none;transition:color .15s}a:hover{color:#a5b4fc}
+.container{max-width:1080px;margin:0 auto;padding:0 32px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(7,7,14,.8);border-bottom:1px solid var(--border)}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+nav .logo{font-size:20px;font-weight:700;color:var(--text);letter-spacing:-.5px}
+nav .logo span{color:var(--accent)}
+nav .nav-links{display:flex;gap:32px;align-items:center}
+nav .nav-links a{font-size:14px;font-weight:500;color:var(--muted);transition:color .15s}nav .nav-links a:hover{color:var(--text)}
+nav .nav-cta{background:#fff;color:#07070e;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;transition:all .15s}nav .nav-cta:hover{background:#e2e2e8;color:#07070e}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}.hamburger svg{display:block}
+.back{display:inline-flex;align-items:center;gap:6px;margin-top:96px;margin-bottom:0;font-size:14px;font-weight:500;color:var(--muted)}.back:hover{color:var(--accent2)}
+.detail-hero{padding:40px 0 48px;border-bottom:1px solid var(--border)}
+.detail-hero h1{font-size:40px;font-weight:700;margin-bottom:10px;letter-spacing:-1px}
+.detail-hero .tagline{font-size:18px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.detail-hero .meta-row{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.detail-hero .meta-row span{font-size:14px;color:var(--muted)}.detail-hero .meta-row strong{color:var(--text2)}
+.product-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:4px 10px;border-radius:6px;margin-bottom:20px}
+.product-tag.live{background:var(--green-dim);color:var(--green)}
+.section{padding:48px 0;border-bottom:1px solid var(--border)}.section:last-of-type{border-bottom:none}
+.section h2{font-size:24px;font-weight:700;margin-bottom:28px;letter-spacing:-.3px}
+.endpoint{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:16px;transition:border-color .2s}.endpoint:hover{border-color:var(--border2)}
+.endpoint .ep-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.endpoint .method{background:var(--accent);color:white;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;font-family:monospace;letter-spacing:.5px}
+.endpoint .path{font-family:'SF Mono',Monaco,monospace;font-size:15px;color:var(--text)}
+.endpoint .ep-desc{color:var(--muted);font-size:14px;margin-bottom:12px}
+.endpoint .ep-price{font-size:13px;color:var(--muted);margin-bottom:12px}.endpoint .ep-price strong{color:var(--green)}
+.endpoint .ep-example{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px 18px;font-family:'SF Mono',Monaco,monospace;font-size:12px;color:var(--muted);overflow-x:auto;white-space:pre;margin-top:10px;line-height:1.6}
+.details-text{color:var(--muted);font-size:15px;line-height:1.8;max-width:700px}.details-text p{margin-bottom:16px}
+footer{border-top:1px solid var(--border);padding:48px 0;text-align:center}
+footer p{color:var(--muted);font-size:13px}footer a{color:var(--muted)}footer a:hover{color:var(--text2)}
+footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:center}
+@media(max-width:768px){.container{padding:0 20px}.hamburger{display:block}nav .nav-links{position:fixed;top:64px;left:0;right:0;background:rgba(7,7,14,.97);backdrop-filter:blur(20px);flex-direction:column;gap:0;padding:8px 0;border-bottom:1px solid var(--border);transform:translateY(-110%);transition:transform .25s ease;z-index:99}nav .nav-links.open{transform:translateY(0)}nav .nav-links a{padding:14px 24px;font-size:16px;width:100%;border-bottom:1px solid var(--border)}nav .nav-links a:last-child{border-bottom:none}nav .nav-cta{margin:12px 24px;text-align:center;display:block;border-bottom:none!important}.back{margin-top:80px}.detail-hero{padding:24px 0 32px}.detail-hero h1{font-size:26px}.detail-hero .tagline{font-size:16px}.endpoint{padding:20px}.endpoint .path{font-size:13px}.endpoint .ep-example{font-size:11px;padding:12px 14px}footer{padding:32px 0}footer .footer-links{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<nav><div class="container"><a href="/" class="logo"><span>x402</span>agent</a><button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#eaeaf0" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><div class="nav-links"><a href="/#services">Services</a><a href="/#how-it-works">How It Works</a><a href="/#contact">Contact</a><a href="/#contact" class="nav-cta">Get in Touch</a></div></div></nav>
+
+<div class="container">
+  <a href="/" class="back">&larr; All Services</a>
+  <section class="detail-hero">
+    <span class="product-tag live">Live</span>
+    <h1>Norwegian Statistics &amp; Economics</h1>
+    <p class="tagline">Population, Consumer Price Index (CPI), and GDP data from Statistics Norway (SSB)</p>
+    <div class="meta-row">
+      <span>From <strong>$0.01</strong>/query</span>
+      <span>USDC on Base</span>
+      <span>API: <strong><a href="https://x402-norway-statistics.fly.dev">x402-norway-statistics.fly.dev</a></strong></span>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Endpoints</h2>
+    <div class="endpoint">
+      <div class="ep-header"><span class="method">GET</span><span class="path">/population?municipality={name_or_code}</span></div>
+      <div class="ep-desc">Population for a Norwegian municipality by name or 4-digit code. Data from SSB table 07459.</div>
+      <div class="ep-price">Price: <strong>$0.01</strong></div>
+      <div class="ep-example">curl 'https://x402-norway-statistics.fly.dev/population?municipality=oslo'</div>
+    </div>
+    <div class="endpoint">
+      <div class="ep-header"><span class="method">GET</span><span class="path">/cpi</span></div>
+      <div class="ep-desc">Consumer Price Index (KPI) — current index value, year-over-year inflation rate, and monthly history.</div>
+      <div class="ep-price">Price: <strong>$0.01</strong></div>
+      <div class="ep-example">curl 'https://x402-norway-statistics.fly.dev/cpi'</div>
+    </div>
+    <div class="endpoint">
+      <div class="ep-header"><span class="method">GET</span><span class="path">/gdp</span></div>
+      <div class="ep-desc">Quarterly GDP from SSB national accounts table 09190.</div>
+      <div class="ep-price">Price: <strong>$0.01</strong></div>
+      <div class="ep-example">curl 'https://x402-norway-statistics.fly.dev/gdp'</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Free Endpoints</h2>
+    <div class="endpoint"><div class="ep-header"><span class="method">GET</span><span class="path">/health</span></div><div class="ep-desc">Service health check</div><div class="ep-price">Price: <strong style="color:var(--green)">Free</strong></div></div>
+  </section>
+
+  <section class="section">
+    <h2>About</h2>
+    <div class="details-text">
+      <p>Data sourced from Statistics Norway (SSB) — Norway's national statistics agency. All figures are official statistics published under open data licenses.</p>
+      <p>Population data covers all 356 Norwegian municipalities. CPI tracks the total consumer price index with monthly granularity. GDP provides quarterly national accounts data.</p>
+    </div>
+  </section>
+</div>
+
+<footer><div class="container"><div class="footer-links"><a href="https://x402.org">x402 Protocol</a><a href="https://base.org">Base Network</a><a href="/#contact">Contact</a></div><p>&copy; 2026 x402agent.no &middot; Pay-per-query APIs for AI agents</p></div></footer>
+</body>
+</html>
