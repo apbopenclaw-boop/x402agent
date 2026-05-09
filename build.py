@@ -17,8 +17,8 @@ import json, html, os
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = "https://x402agent.no"
-# Configure: set your Formspree endpoint (https://formspree.io)
-FORM_ACTION = "https://formspree.io/f/xwpewpvd"
+# FormSubmit.co — no signup needed, sends to email directly
+FORM_ACTION = "https://formsubmit.co/apbopenclaw@gmail.com"
 
 def load_services():
     with open(os.path.join(ROOT, "services.json")) as f:
@@ -398,6 +398,8 @@ $ {ex_req}
         <textarea id="message" name="message" required></textarea>
       </div>
       <input type="hidden" name="_subject" value="x402agent.no contact form">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="{DOMAIN}/">
       <button type="submit" class="form-submit">Send Message</button>
     </form>
   </div>
