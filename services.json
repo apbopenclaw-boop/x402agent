@@ -136,5 +136,41 @@
       }
     ],
     "details": "Data sourced from MET Norway (Meteorologisk institutt), public domain / CC BY 4.0. Aurora caches responses for 30 min (forecast), 1 hr (marine), and 5 min (alerts).\n\nCoverage: latitude 55–81°N, longitude −10 to 35°E — covering mainland Norway, Svalbard, Jan Mayen, and Scandinavian waters.\n\nThe /cities endpoint is free and returns a geocoding list of 50 Norwegian cities, useful for discovering valid city names for the /forecast/city endpoint."
+  },
+  {
+    "slug": "norwegian-statistics",
+    "name": "Norwegian Statistics & Economics",
+    "tagline": "Exchange rates, population, CPI, GDP from SSB and Norges Bank",
+    "description": "Economic and demographic data for Norway — exchange rates from Norges Bank, population statistics, CPI, and GDP from Statistics Norway (SSB). Pay per query with USDC via x402.",
+    "status": "soon",
+    "price": "TBD",
+    "currency": "USDC on Base"
+  },
+  {
+    "slug": "norwegian-property",
+    "name": "Norwegian Property & Address",
+    "tagline": "Address search, geocoding, elevation, and property data from Kartverket",
+    "description": "Norwegian address lookup, geocoding, elevation profiles, and property registry data. Powered by Kartverket (Norwegian Mapping Authority). Pay per query with USDC via x402.",
+    "status": "soon",
+    "price": "TBD",
+    "currency": "USDC on Base"
+  },
+  {
+    "slug": "norwegian-ip-search",
+    "name": "Norwegian IP Search",
+    "tagline": "Trademarks, patents, and designs from Patentstyret",
+    "description": "Search Norwegian trademarks, patents, and industrial designs. Data from Patentstyret (Norwegian Industrial Property Office). Pay per query with USDC via x402.",
+    "status": "soon",
+    "price": "TBD",
+    "currency": "USDC on Base"
+  },
+  {
+    "slug": "norwegian-transport",
+    "name": "Norwegian Transport",
+    "tagline": "Journey planning, departures, and stops from Entur",
+    "description": "Norwegian public transport — journey planning, real-time departures, and stop information. Powered by Entur. Pay per query with USDC via x402.",
+    "status": "soon",
+    "price": "TBD",
+    "currency": "USDC on Base"
   }
 ]
