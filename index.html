@@ -351,11 +351,11 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
 <section class="stats">
   <div class="container">
     <div class="stat">
-      <div class="stat-value">6</div>
+      <div class="stat-value">7</div>
       <div class="stat-label">Live services</div>
     </div>
     <div class="stat">
-      <div class="stat-value">19</div>
+      <div class="stat-value">22</div>
       <div class="stat-label">API endpoints</div>
     </div>
     <div class="stat">
@@ -437,12 +437,12 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
         </div>
       </div>
       <div class="product">
-        <span class="product-tag soon">Coming Soon</span>
-        <h3><a href="#">Norwegian Transport</a></h3>
-        <p>Norwegian public transport — journey planning, real-time departures, and stop information. Powered by Entur. Pay per query with USDC via x402.</p>
+        <span class="product-tag live">Live</span>
+        <h3><a href="/norway-transport/">Norwegian Transport</a></h3>
+        <p>Real-time departures, journey planning, and stop search for Norwegian public transport. Powered by Entur. Pay per query with USDC via x402.</p>
         <div class="product-meta">
-          <span>From <strong>TBD</strong>/query</span>
-          <span><strong>0</strong> endpoints</span>
+          <span>From <strong>$0.005</strong>/query</span>
+          <span><strong>3</strong> endpoints</span>
           <span>USDC on Base</span>
         </div>
       </div>
@@ -692,6 +692,16 @@ var services=[
      if(/elevation|height|altitude/i.test(q)){desc='Elevation data from Kartverket DTM';endpoint='GET /elevation?lat=...&lon=...'}
      else if(/property|cadastre|matrikkel|gnr|bnr/i.test(q)){desc='Cadastral property lookup';endpoint='GET /property?knr=...&gnr=...&bnr=...'}
      else{desc='Norwegian address lookup';endpoint='GET /address?q=...'}
+     return{endpoint:endpoint,desc:desc}
+   }},
+  {id:'transport',name:'Norwegian Transport',icon:'🚆',cls:'nch',
+   keywords:['transport','bus','train','tram','metro','departure','departures','journey','trip','route','stop','station','entur','vy','ruter','oslo s','jernbanetorget','bergen','ferry','airport express','flytoget','public transport','kollektiv'],
+   url:'/norway-transport/',
+   match:function(q){
+     var endpoint='',desc='';
+     if(/journey|trip|route|from.*to|to.*from/i.test(q)){desc='Plan a journey between two places';endpoint='GET /journey?from=...&to=...'}
+     else if(/departure|when|next|leave/i.test(q)){desc='Real-time departures from a stop';endpoint='GET /departures?stop=...'}
+     else{desc='Search Norwegian stops';endpoint='GET /stops?q=...'}
      return{endpoint:endpoint,desc:desc}
    }},
   {id:'patent',name:'Norwegian IP Search',icon:'⚖️',cls:'bhrefs',
