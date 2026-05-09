@@ -513,6 +513,18 @@ def build_detail(svc):
     tag_cls = "live" if svc["status"] == "live" else "soon"
     tag_label = "Live" if svc["status"] == "live" else "Coming Soon"
     endpoints_html = "\n".join(render_endpoint(ep) for ep in svc.get("endpoints",[]))
+    free_eps = svc.get("free_endpoints", [])
+    free_html = ""
+    if free_eps:
+        free_items = "\n".join(
+            f'    <div class="endpoint"><div class="ep-header"><span class="method">{html.escape(fe["method"])}</span><span class="path">{html.escape(fe["path"])}</span></div><div class="ep-desc">{html.escape(fe["description"])}</div><div class="ep-price">Price: <strong style="color:var(--green)">Free</strong></div></div>'
+            for fe in free_eps
+        )
+        free_html = f'''
+  <section class="section">
+    <h2>Free Endpoints</h2>
+{free_items}
+  </section>'''
     api_url = svc.get("url","")
     api_link = f'<span>API: <strong><a href="{e(api_url)}">{e(api_url)}</a></strong></span>' if api_url else ""
     domain_note = f'<span>Domain: <strong>{e(svc["domain"])}</strong></span>' if svc.get("domain") else ""
@@ -561,6 +573,8 @@ def build_detail(svc):
     <h2>Endpoints</h2>
 {endpoints_html}
   </section>
+
+  {free_html}
 
   <section class="section">
     <h2>About</h2>

@@ -74,5 +74,67 @@
       }
     ],
     "details": "Built on Common Crawl data, refreshed periodically. Provides backlink profiles, referring domain lists with authority scoring, and competitive gap analysis.\n\nDesigned for AI agents doing SEO research, link prospecting, and competitive analysis. All responses are structured JSON."
+  },
+  {
+    "slug": "aurora",
+    "name": "Aurora — Norwegian Weather Intelligence",
+    "tagline": "Weather forecasts, marine data, and alerts for Norway and Scandinavian waters",
+    "description": "Weather forecasts, marine data, and alerts for Norway and Scandinavian waters. Powered by MET Norway. Pay per query with USDC via x402.",
+    "status": "live",
+    "url": "https://x402-aurora.fly.dev",
+    "price": "$0.005",
+    "currency": "USDC on Base",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/forecast?lat={lat}&lon={lon}",
+        "description": "Weather forecast for a coordinate in Norway/Scandinavia",
+        "price": "$0.005",
+        "example_request": "curl 'https://x402-aurora.fly.dev/forecast?lat=59.91&lon=10.75'",
+        "example_response": "{\"location\":{\"lat\":59.91,\"lon\":10.75},\"forecast\":[...]}"
+      },
+      {
+        "method": "GET",
+        "path": "/forecast/city?name={city}",
+        "description": "Weather forecast by Norwegian city name",
+        "price": "$0.005",
+        "example_request": "curl 'https://x402-aurora.fly.dev/forecast/city?name=oslo'",
+        "example_response": "{\"city\":\"Oslo\",\"forecast\":[...]}"
+      },
+      {
+        "method": "GET",
+        "path": "/marine?lat={lat}&lon={lon}",
+        "description": "Marine forecast for Scandinavian waters (waves, wind, currents)",
+        "price": "$0.01",
+        "example_request": "curl 'https://x402-aurora.fly.dev/marine?lat=60.0&lon=5.0'",
+        "example_response": "{\"location\":{\"lat\":60.0,\"lon\":5.0},\"marine\":[...]}"
+      },
+      {
+        "method": "GET",
+        "path": "/alerts",
+        "description": "Active weather alerts and warnings for Norway",
+        "price": "$0.005",
+        "example_request": "curl 'https://x402-aurora.fly.dev/alerts'",
+        "example_response": "{\"alerts\":[{\"event\":\"Wind\",\"severity\":\"Moderate\",...}]}"
+      }
+    ],
+    "free_endpoints": [
+      {
+        "method": "GET",
+        "path": "/cities",
+        "description": "List of 50 Norwegian cities with coordinates (free, no payment required)"
+      },
+      {
+        "method": "GET",
+        "path": "/health",
+        "description": "Service health check"
+      },
+      {
+        "method": "GET",
+        "path": "/api-status",
+        "description": "API status and upstream availability"
+      }
+    ],
+    "details": "Data sourced from MET Norway (Meteorologisk institutt), public domain / CC BY 4.0. Aurora caches responses for 30 min (forecast), 1 hr (marine), and 5 min (alerts).\n\nCoverage: latitude 55–81°N, longitude −10 to 35°E — covering mainland Norway, Svalbard, Jan Mayen, and Scandinavian waters.\n\nThe /cities endpoint is free and returns a geocoding list of 50 Norwegian cities, useful for discovering valid city names for the /forecast/city endpoint."
   }
 ]

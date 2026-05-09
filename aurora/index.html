@@ -8,12 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<title>Norwegian Companies House — x402agent</title>
-<meta name="description" content="Look up any of 500,000+ Norwegian companies — board members, CEO, financials, industry codes. Data from Brønnøysundregistrene.">
-<link rel="canonical" href="https://x402agent.no/norwegian-companies-house/">
-<meta property="og:title" content="Norwegian Companies House — x402agent">
-<meta property="og:description" content="Look up any of 500,000+ Norwegian companies — board members, CEO, financials, industry codes. Data from Brønnøysundregistrene.">
-<meta property="og:url" content="https://x402agent.no/norwegian-companies-house/">
+<title>Aurora — Norwegian Weather Intelligence — x402agent</title>
+<meta name="description" content="Weather forecasts, marine data, and alerts for Norway and Scandinavian waters. Powered by MET Norway. Pay per query with USDC via x402.">
+<link rel="canonical" href="https://x402agent.no/aurora/">
+<meta property="og:title" content="Aurora — Norwegian Weather Intelligence — x402agent">
+<meta property="og:description" content="Weather forecasts, marine data, and alerts for Norway and Scandinavian waters. Powered by MET Norway. Pay per query with USDC via x402.">
+<meta property="og:url" content="https://x402agent.no/aurora/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <style>
@@ -248,12 +248,12 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
 
   <section class="detail-hero">
     <span class="product-tag live">Live</span>
-    <h1>Norwegian Companies House</h1>
-    <p class="tagline">Company intelligence for 500,000+ Norwegian companies</p>
+    <h1>Aurora — Norwegian Weather Intelligence</h1>
+    <p class="tagline">Weather forecasts, marine data, and alerts for Norway and Scandinavian waters</p>
     <div class="meta-row">
-      <span>From <strong>$0.01</strong>/query</span>
+      <span>From <strong>$0.005</strong>/query</span>
       <span>USDC on Base</span>
-      <span>API: <strong><a href="https://norwegian-companies-house.fly.dev/">https://norwegian-companies-house.fly.dev/</a></strong></span>
+      <span>API: <strong><a href="https://x402-aurora.fly.dev">https://x402-aurora.fly.dev</a></strong></span>
       
     </div>
   </section>
@@ -263,42 +263,59 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
     <div class="endpoint">
       <div class="ep-header">
         <span class="method">GET</span>
-        <span class="path">/company/{org_nr}</span>
+        <span class="path">/forecast?lat={lat}&amp;lon={lon}</span>
       </div>
-      <div class="ep-desc">Full company details by organization number</div>
-      <div class="ep-price">Price: <strong>$0.01</strong></div>
-<div class="ep-example">curl https://norwegian-companies-house.fly.dev/company/923609016</div>
-<div class="ep-example">{&quot;name&quot;:&quot;EQUINOR ASA&quot;,&quot;type&quot;:&quot;ASA&quot;,&quot;employees&quot;:21376,...}</div>
+      <div class="ep-desc">Weather forecast for a coordinate in Norway/Scandinavia</div>
+      <div class="ep-price">Price: <strong>$0.005</strong></div>
+<div class="ep-example">curl &#x27;https://x402-aurora.fly.dev/forecast?lat=59.91&amp;lon=10.75&#x27;</div>
+<div class="ep-example">{&quot;location&quot;:{&quot;lat&quot;:59.91,&quot;lon&quot;:10.75},&quot;forecast&quot;:[...]}</div>
     </div>
     <div class="endpoint">
       <div class="ep-header">
         <span class="method">GET</span>
-        <span class="path">/search?q={query}</span>
+        <span class="path">/forecast/city?name={city}</span>
       </div>
-      <div class="ep-desc">Search companies by name</div>
-      <div class="ep-price">Price: <strong>$0.01</strong></div>
-<div class="ep-example">curl https://norwegian-companies-house.fly.dev/search?q=equinor</div>
-<div class="ep-example">[{&quot;org_nr&quot;:&quot;923609016&quot;,&quot;name&quot;:&quot;EQUINOR ASA&quot;,...}]</div>
+      <div class="ep-desc">Weather forecast by Norwegian city name</div>
+      <div class="ep-price">Price: <strong>$0.005</strong></div>
+<div class="ep-example">curl &#x27;https://x402-aurora.fly.dev/forecast/city?name=oslo&#x27;</div>
+<div class="ep-example">{&quot;city&quot;:&quot;Oslo&quot;,&quot;forecast&quot;:[...]}</div>
     </div>
     <div class="endpoint">
       <div class="ep-header">
         <span class="method">GET</span>
-        <span class="path">/person/{name}</span>
+        <span class="path">/marine?lat={lat}&amp;lon={lon}</span>
       </div>
-      <div class="ep-desc">Find companies by board member or CEO name</div>
+      <div class="ep-desc">Marine forecast for Scandinavian waters (waves, wind, currents)</div>
       <div class="ep-price">Price: <strong>$0.01</strong></div>
-<div class="ep-example">curl https://norwegian-companies-house.fly.dev/person/Anders%20Opedal</div>
-<div class="ep-example">[{&quot;org_nr&quot;:&quot;923609016&quot;,&quot;role&quot;:&quot;Daglig leder&quot;,...}]</div>
+<div class="ep-example">curl &#x27;https://x402-aurora.fly.dev/marine?lat=60.0&amp;lon=5.0&#x27;</div>
+<div class="ep-example">{&quot;location&quot;:{&quot;lat&quot;:60.0,&quot;lon&quot;:5.0},&quot;marine&quot;:[...]}</div>
+    </div>
+    <div class="endpoint">
+      <div class="ep-header">
+        <span class="method">GET</span>
+        <span class="path">/alerts</span>
+      </div>
+      <div class="ep-desc">Active weather alerts and warnings for Norway</div>
+      <div class="ep-price">Price: <strong>$0.005</strong></div>
+<div class="ep-example">curl &#x27;https://x402-aurora.fly.dev/alerts&#x27;</div>
+<div class="ep-example">{&quot;alerts&quot;:[{&quot;event&quot;:&quot;Wind&quot;,&quot;severity&quot;:&quot;Moderate&quot;,...}]}</div>
     </div>
   </section>
 
   
+  <section class="section">
+    <h2>Free Endpoints</h2>
+    <div class="endpoint"><div class="ep-header"><span class="method">GET</span><span class="path">/cities</span></div><div class="ep-desc">List of 50 Norwegian cities with coordinates (free, no payment required)</div><div class="ep-price">Price: <strong style="color:var(--green)">Free</strong></div></div>
+    <div class="endpoint"><div class="ep-header"><span class="method">GET</span><span class="path">/health</span></div><div class="ep-desc">Service health check</div><div class="ep-price">Price: <strong style="color:var(--green)">Free</strong></div></div>
+    <div class="endpoint"><div class="ep-header"><span class="method">GET</span><span class="path">/api-status</span></div><div class="ep-desc">API status and upstream availability</div><div class="ep-price">Price: <strong style="color:var(--green)">Free</strong></div></div>
+  </section>
 
   <section class="section">
     <h2>About</h2>
     <div class="details-text">
-<p>Data sourced from Brønnøysundregistrene (the Norwegian Register of Business Enterprises). Updated regularly. Covers all active Norwegian companies including AS, ASA, NUF, ENK, and more.</p>
-<p>Returns structured JSON with company name, type, registration date, address, industry codes (NACE), number of employees, board members, CEO, and financial data where available.</p>
+<p>Data sourced from MET Norway (Meteorologisk institutt), public domain / CC BY 4.0. Aurora caches responses for 30 min (forecast), 1 hr (marine), and 5 min (alerts).</p>
+<p>Coverage: latitude 55–81°N, longitude −10 to 35°E — covering mainland Norway, Svalbard, Jan Mayen, and Scandinavian waters.</p>
+<p>The /cities endpoint is free and returns a geocoding list of 50 Norwegian cities, useful for discovering valid city names for the /forecast/city endpoint.</p>
 
     </div>
   </section>
