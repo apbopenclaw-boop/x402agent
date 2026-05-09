@@ -101,6 +101,8 @@ nav .nav-cta:hover{background:#e2e2e8;color:#07070e}
 .search-box input::placeholder{color:var(--muted)}
 .search-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .search-box .search-icon{position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.search-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--accent);border:none;border-radius:8px;padding:10px 12px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.search-btn:hover{background:#5558e6}
 .search-box .search-hint{display:flex;gap:8px;margin-top:12px;justify-content:center;flex-wrap:wrap}
 .search-box .hint{font-size:12px;color:var(--muted);padding:4px 12px;background:var(--surface);border:1px solid var(--border);border-radius:20px;cursor:pointer;transition:all .15s}
 .search-box .hint:hover{border-color:var(--accent);color:var(--accent2)}
@@ -331,7 +333,8 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
     <p>Official Norwegian government data — company registers, statistics, property, patents — plus SEO tools and weather. Completely anonymous. No keys, no accounts, no tracking.</p>
     <div class="search-box">
       <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" placeholder="Try: Look up Equinor board members..." id="agent-search" autocomplete="off" onkeydown="if(event.key==='Enter')searchServices()">
+      <input type="text" placeholder="Try: Look up Equinor board members..." id="agent-search" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();searchServices()}">
+      <button type="button" class="search-btn" onclick="searchServices()" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
       <div class="search-hint">
         <span class="hint" onclick="document.getElementById('agent-search').value=this.textContent">Find backlinks for cognite.com</span>
         <span class="hint" onclick="document.getElementById('agent-search').value=this.textContent">Who is CEO of Aker BP?</span>
@@ -718,7 +721,7 @@ function searchServices(){
   });
   box.innerHTML=html;box.classList.add('active')
 }
-document.getElementById('agent-search').addEventListener('input',function(){if(!this.value.trim())document.getElementById('search-results').classList.remove('active')});
+var _searchTimer;document.getElementById('agent-search').addEventListener('input',function(){var v=this.value.trim();if(!v){document.getElementById('search-results').classList.remove('active');return}clearTimeout(_searchTimer);_searchTimer=setTimeout(searchServices,250)});
 document.querySelectorAll('.search-box .hint').forEach(function(h){h.addEventListener('click',function(){setTimeout(searchServices,50)})});
 </script>
 <script>
