@@ -80,6 +80,18 @@ nav .nav-cta:hover{background:#e2e2e8;color:#07070e}
 .search-box .search-hint{display:flex;gap:8px;margin-top:12px;justify-content:center;flex-wrap:wrap}
 .search-box .hint{font-size:12px;color:var(--muted);padding:4px 12px;background:var(--surface);border:1px solid var(--border);border-radius:20px;cursor:pointer;transition:all .15s}
 .search-box .hint:hover{border-color:var(--accent);color:var(--accent2)}
+.search-results{max-width:640px;margin:16px auto 0;display:none}
+.search-results.active{display:block}
+.sr-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:10px;display:flex;align-items:flex-start;gap:16px;transition:border-color .2s;cursor:pointer;text-decoration:none;color:inherit}
+.sr-card:hover{border-color:var(--accent);color:inherit}
+.sr-icon{flex-shrink:0;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.sr-icon.nch{background:var(--green-dim);color:var(--green)}
+.sr-icon.bhrefs{background:var(--accent-glow);color:var(--accent2)}
+.sr-icon.aurora{background:var(--amber-dim);color:var(--amber)}
+.sr-body h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.sr-body p{font-size:13px;color:var(--muted);margin:0}
+.sr-body .sr-endpoint{font-family:'SF Mono',Monaco,monospace;font-size:11px;color:var(--accent2);margin-top:8px;padding:6px 10px;background:var(--bg);border-radius:6px;display:inline-block}
+.sr-none{text-align:center;padding:20px;color:var(--muted);font-size:14px}
 
 /* ─── Stats row ─── */
 .stats{padding:48px 0;border-bottom:1px solid var(--border)}
@@ -269,7 +281,8 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
     <p>Norwegian company intelligence, SEO data, and Nordic business insights. Pay per query with USDC — no keys, no accounts, no subscriptions.</p>
     <div class="search-box">
       <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" placeholder="Try: Look up Equinor board members..." id="agent-search" autocomplete="off">
+      <input type="text" placeholder="Try: Look up Equinor board members..." id="agent-search" autocomplete="off" onkeydown="if(event.key==='Enter')searchServices()">
+      <div id="search-results" class="search-results"></div>
       <div class="search-hint">
         <span class="hint" onclick="document.getElementById('agent-search').value=this.textContent">Find backlinks for cognite.com</span>
         <span class="hint" onclick="document.getElementById('agent-search').value=this.textContent">Who is CEO of Aker BP?</span>
@@ -457,6 +470,63 @@ $ curl https://norwegian-companies-house.fly.dev/company/923609016
 </footer>
 
 
+<script>
+var services=[
+  {id:'nch',name:'Norwegian Companies House',icon:'🏢',cls:'nch',
+   keywords:['company','companies','board','ceo','director','chairman','norwegian','norway','equinor','aker','statoil','yara','telenor','dnb','kongsberg','org','organization','business','revenue','employees','financials','brønnøysund','aksjeselskap','foretak','search company','look up','who is','find company','roles','annual','styre'],
+   url:'/norwegian-companies-house/',
+   match:function(q){
+     var endpoint='',desc='';
+     if(/\d{9}/.test(q)){endpoint='GET /company/'+q.match(/\d{9}/)[0];desc='Look up this company by org number'}
+     else if(/board|director|chairman|styre|roles|who is|ceo/i.test(q)){desc='Find board members and key roles';endpoint='GET /company/{org}/roles'}
+     else if(/search|find|look/i.test(q)){desc='Search Norwegian company registry';endpoint='GET /search?q='+encodeURIComponent(q.replace(/search|find|look up|company|companies|norwegian/gi,'').trim())}
+     else{desc='Search 500K+ Norwegian companies';endpoint='GET /search?q=...'}
+     return{endpoint:endpoint,desc:desc}
+   }},
+  {id:'bhrefs',name:'bhrefs — SEO Tools',icon:'🔗',cls:'bhrefs',
+   keywords:['backlink','backlinks','seo','domain','link','links','referring','competitive','gap','crawl','anchor','ranking','site','url','.com','.no','.org','.io','email enrichment'],
+   url:'/bhrefs/',
+   match:function(q){
+     var endpoint='',desc='';
+     var domain=q.match(/[a-z0-9-]+\.[a-z]{2,}/i);
+     if(/gap|competitive|versus|vs/i.test(q)){desc='Compare backlink profiles';endpoint='GET /gap?domains=...'}
+     else if(domain){desc='Find backlinks for '+domain[0];endpoint='GET /backlinks?domain='+domain[0]}
+     else{desc='Backlink discovery and competitive analysis';endpoint='GET /backlinks?domain=...'}
+     return{endpoint:endpoint,desc:desc}
+   }},
+  {id:'aurora',name:'Aurora — Weather',icon:'🌊',cls:'aurora',
+   keywords:['weather','forecast','temperature','rain','wind','marine','wave','alert','storm','snow','climate','bergen','oslo','tromsø','stavanger','trondheim','bodø','nordkapp','svalbard','sea state','precipitation'],
+   url:'/aurora/',
+   match:function(q){
+     var endpoint='',desc='';
+     if(/marine|wave|sea/i.test(q)){desc='Marine forecast for Norwegian waters';endpoint='GET /marine?lat=...&lon=...'}
+     else if(/alert/i.test(q)){desc='Active weather alerts for Norway';endpoint='GET /alerts'}
+     else{desc='Weather forecast for any Norwegian location';endpoint='GET /forecast?location=...'}
+     return{endpoint:endpoint,desc:desc}
+   }}
+];
+function searchServices(){
+  var q=document.getElementById('agent-search').value.trim().toLowerCase();
+  var box=document.getElementById('search-results');
+  if(!q){box.classList.remove('active');box.innerHTML='';return}
+  var hits=[];
+  services.forEach(function(s){
+    var score=0;
+    s.keywords.forEach(function(k){if(q.indexOf(k)!==-1)score++});
+    if(score>0)hits.push({svc:s,score:score})
+  });
+  hits.sort(function(a,b){return b.score-a.score});
+  if(!hits.length){box.innerHTML='<div class="sr-none">No matching service found. <a href="/#services">Browse all services →</a></div>';box.classList.add('active');return}
+  var html='';
+  hits.forEach(function(h){
+    var m=h.svc.match(q);
+    html+='<a href="'+h.svc.url+'" class="sr-card"><div class="sr-icon '+h.svc.cls+'">'+h.svc.icon+'</div><div class="sr-body"><h4>'+h.svc.name+'</h4><p>'+m.desc+'</p>'+(m.endpoint?'<div class="sr-endpoint">'+m.endpoint+'</div>':'')+'</div></a>'
+  });
+  box.innerHTML=html;box.classList.add('active')
+}
+document.getElementById('agent-search').addEventListener('input',function(){if(!this.value.trim())document.getElementById('search-results').classList.remove('active')});
+document.querySelectorAll('.search-box .hint').forEach(function(h){h.addEventListener('click',function(){setTimeout(searchServices,50)})});
+</script>
 <script>
 (function(){
   var imgs=document.querySelectorAll('.hero-bg img');
