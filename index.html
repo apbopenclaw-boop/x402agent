@@ -144,6 +144,20 @@ nav .nav-cta:hover{background:#e2e2e8;color:#07070e}
 .product-meta span{font-size:12px;color:var(--muted);padding:4px 0}
 .product-meta strong{color:var(--text2)}
 
+/* ─── Use cases ─── */
+.use-cases{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;padding-bottom:80px}
+.use-case{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;transition:border-color .2s}
+.use-case:hover{border-color:var(--border2)}
+.use-case .uc-icon{font-size:28px;margin-bottom:16px}
+.use-case h4{font-size:17px;font-weight:600;margin-bottom:8px}
+.use-case p{color:var(--muted);font-size:14px;line-height:1.7}
+.use-case .uc-services{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.use-case .uc-tag{font-size:11px;padding:3px 8px;border-radius:4px;background:var(--accent-glow);color:var(--accent2);border:1px solid rgba(99,102,241,.15)}
+.trust-badges{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;padding:32px 0;margin-bottom:32px}
+.trust-badge{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.trust-badge .tb-icon{font-size:18px}
+@media(max-width:768px){.use-cases{grid-template-columns:1fr;gap:16px;padding-bottom:48px}.trust-badges{gap:16px;padding:24px 0}}
+
 /* ─── How it works ─── */
 .steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;padding-bottom:80px}
 .step{text-align:center;padding:32px 24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);transition:border-color .2s}
@@ -314,7 +328,7 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
   <div class="container">
     <div class="hero-badge"><span class="dot"></span> Powered by x402 Protocol</div>
     <h1>Norway's API gateway<br>for AI agents</h1>
-    <p>Norwegian company intelligence, SEO data, and Nordic business insights. Pay per query with USDC — no keys, no accounts, no subscriptions.</p>
+    <p>Official Norwegian government data — company registers, statistics, property, patents — plus SEO tools and weather. Completely anonymous. No keys, no accounts, no tracking.</p>
     <div class="search-box">
       <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="text" placeholder="Try: Look up Equinor board members..." id="agent-search" autocomplete="off" onkeydown="if(event.key==='Enter')searchServices()">
@@ -425,6 +439,106 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
           <span><strong>0</strong> endpoints</span>
           <span>USDC on Base</span>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="use-cases">
+  <div class="section-header">
+    <h2>Who It’s For</h2>
+    <p>Built for anyone who needs Norwegian data — whether you’re an AI agent, investor, or human.</p>
+  </div>
+  <div class="container">
+    <div class="trust-badges">
+      <div class="trust-badge"><span class="tb-icon">🏦</span> Official government sources</div>
+      <div class="trust-badge"><span class="tb-icon">🔒</span> Completely anonymous</div>
+      <div class="trust-badge"><span class="tb-icon">⚡</span> Real-time data</div>
+      <div class="trust-badge"><span class="tb-icon">🇳🇴</span> Norwegian quality</div>
+    </div>
+    <div class="use-cases">
+      <div class="use-case">
+        <div class="uc-icon">💼</div>
+        <h4>Investors &amp; Due Diligence</h4>
+        <p>Research Norwegian companies before investing — board members, financials, CEO history, and ownership structure. All from Brønnøysundregistrene.</p>
+        <div class="uc-services"><span class="uc-tag">Companies House</span><span class="uc-tag">Statistics</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">🌍</div>
+        <h4>Expanding to Norway</h4>
+        <p>Companies entering the Norwegian market — find potential partners, check competitor registrations, look up trademarks, and understand the business landscape.</p>
+        <div class="uc-services"><span class="uc-tag">Companies House</span><span class="uc-tag">IP Search</span><span class="uc-tag">Property</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">🔍</div>
+        <h4>Competitive Research</h4>
+        <p>Analyse competitor backlink profiles, find link building opportunities, and discover content gaps. SEO intelligence powered by Common Crawl.</p>
+        <div class="uc-services"><span class="uc-tag">bhrefs</span><span class="uc-tag">Companies House</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">🏠</div>
+        <h4>Property &amp; Real Estate</h4>
+        <p>Look up Norwegian properties by cadastral number, check elevation data for building sites, or find addresses across all 356 municipalities.</p>
+        <div class="uc-services"><span class="uc-tag">Property</span><span class="uc-tag">Statistics</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">📈</div>
+        <h4>Economic Analysis</h4>
+        <p>Track Norwegian CPI, GDP trends, and population data by municipality. Official SSB statistics for reports, forecasting, and market sizing.</p>
+        <div class="uc-services"><span class="uc-tag">Statistics</span><span class="uc-tag">Companies House</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">⛵</div>
+        <h4>Trip Planning &amp; Outdoors</h4>
+        <p>Weather forecasts for any Norwegian location, marine conditions for sailing, and active storm alerts. Plan hikes, fjord trips, or offshore operations.</p>
+        <div class="uc-services"><span class="uc-tag">Aurora Weather</span><span class="uc-tag">Property</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="what-it-can-do">
+  <div class="section-header">
+    <h2>What It Can Do</h2>
+    <p>Real queries, real answers — from official Norwegian data sources.</p>
+  </div>
+  <div class="container">
+    <div class="use-cases">
+      <div class="use-case">
+        <div class="uc-icon">🏢</div>
+        <h4>“Who sits on Equinor’s board?”</h4>
+        <p>Full board composition, CEO, chairman, and all registered roles — from the official Norwegian company register.</p>
+        <div class="uc-services"><span class="uc-tag">Companies House → /company/{org}/roles</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">📊</div>
+        <h4>“What’s Norway’s current inflation rate?”</h4>
+        <p>Latest CPI figures, year-over-year change, and monthly index history from Statistics Norway.</p>
+        <div class="uc-services"><span class="uc-tag">Statistics → /cpi</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">🔗</div>
+        <h4>“Who links to my competitor?”</h4>
+        <p>Every referring domain, anchor text, and link count — with competitive gap analysis to find opportunities they have that you don’t.</p>
+        <div class="uc-services"><span class="uc-tag">bhrefs → /backlinks/{domain}</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">⚖️</div>
+        <h4>“Is this trademark taken in Norway?”</h4>
+        <p>Search the full Norwegian trademark registry — application status, owner, Nice classes, and filing dates from Patentstyret.</p>
+        <div class="uc-services"><span class="uc-tag">IP Search → /trademark/search</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">⛰️</div>
+        <h4>“How high is Galdhøpiggen?”</h4>
+        <p>Precise elevation data from Kartverket’s DTM1 terrain model. 1-metre resolution across all of Norway.</p>
+        <div class="uc-services"><span class="uc-tag">Property → /elevation</span></div>
+      </div>
+      <div class="use-case">
+        <div class="uc-icon">🌊</div>
+        <h4>“What’s the sea state off Bergen?”</h4>
+        <p>Marine forecasts for Scandinavian waters — wave height, wind speed, and sea conditions from MET Norway.</p>
+        <div class="uc-services"><span class="uc-tag">Aurora → /marine</span></div>
       </div>
     </div>
   </div>
