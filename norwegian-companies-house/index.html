@@ -153,16 +153,74 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
 .details-text{color:var(--muted);font-size:15px;line-height:1.8;max-width:700px}
 .details-text p{margin-bottom:16px}
 
+/* ─── Mobile hamburger ─── */
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger svg{display:block}
+
 @media(max-width:768px){
-  .hero{padding:120px 0 60px}
-  .hero h1{font-size:36px;letter-spacing:-1px}
-  .hero p{font-size:17px}
-  .product-grid,.steps{grid-template-columns:1fr}
-  .stats .container{gap:32px}
+  .container{padding:0 20px}
+
+  /* Nav: hamburger */
+  .hamburger{display:block}
+  nav .nav-links{position:fixed;top:64px;left:0;right:0;background:rgba(7,7,14,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);flex-direction:column;gap:0;padding:8px 0;border-bottom:1px solid var(--border);transform:translateY(-110%);transition:transform .25s ease;z-index:99}
+  nav .nav-links.open{transform:translateY(0)}
+  nav .nav-links a{padding:14px 24px;font-size:16px;width:100%;border-bottom:1px solid var(--border)}
+  nav .nav-links a:last-child{border-bottom:none}
+  nav .nav-cta{margin:12px 24px;text-align:center;display:block;border-bottom:none!important}
+
+  /* Hero */
+  .hero{padding:110px 0 50px}
+  .hero h1{font-size:32px;letter-spacing:-1px}
+  .hero p{font-size:16px;margin-bottom:32px}
+  .hero-badge{font-size:11px;padding:5px 12px}
+  .search-box input{font-size:15px;padding:16px 20px 16px 46px}
+  .search-box .search-icon{left:14px}
+  .search-box .search-hint{gap:6px}
+  .search-box .hint{font-size:11px;padding:4px 10px}
+
+  /* Stats */
+  .stats{padding:32px 0}
+  .stats .container{display:grid;grid-template-columns:1fr 1fr;gap:24px}
   .stat-value{font-size:24px}
-  .detail-hero h1{font-size:28px}
-  nav .nav-links{gap:16px}
+  .stat-label{font-size:12px}
+
+  /* Sections */
+  .section-header{padding:48px 0 32px}
   .section-header h2{font-size:28px}
+  .section-header p{font-size:15px}
+
+  /* Cards */
+  .product-grid{grid-template-columns:1fr;gap:16px;padding-bottom:48px}
+  .product{padding:24px}
+  .product h3{font-size:19px}
+
+  /* Steps */
+  .steps{grid-template-columns:1fr;gap:16px;padding-bottom:48px}
+  .step{padding:24px 20px}
+
+  /* Protocol */
+  .protocol-section{padding:0 0 48px}
+  .code-block{font-size:11px;padding:20px 16px;line-height:1.7}
+
+  /* Contact */
+  .contact{padding:48px 0}
+  .contact h2{font-size:26px}
+  .form-group input,.form-group textarea{font-size:16px;padding:12px 14px}
+  .form-submit{padding:16px;font-size:16px}
+
+  /* Detail pages */
+  .back{margin-top:80px}
+  .detail-hero{padding:24px 0 32px}
+  .detail-hero h1{font-size:26px}
+  .detail-hero .tagline{font-size:16px}
+  .detail-hero .meta-row{gap:12px}
+  .endpoint{padding:20px}
+  .endpoint .path{font-size:13px}
+  .endpoint .ep-example{font-size:11px;padding:12px 14px}
+
+  /* Footer */
+  footer{padding:32px 0}
+  footer .footer-links{flex-direction:column;gap:12px}
 }
 
 </style>
@@ -172,6 +230,9 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
 <nav>
   <div class="container">
     <a href="/" class="logo"><span>x402</span>agent</a>
+    <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#eaeaf0" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <div class="nav-links">
       <a href="/#services">Services</a>
       <a href="/#how-it-works">How It Works</a>
