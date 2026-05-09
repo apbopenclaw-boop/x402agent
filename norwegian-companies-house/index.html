@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>x402agent — AI Agent Services Powered by x402</title>
-<meta name="description" content="Pay-per-query APIs built for AI agents. Company intelligence, SEO tools, and more — all powered by the x402 micropayment protocol. No API keys, no subscriptions.">
-<link rel="canonical" href="https://x402agent.no/">
-<meta property="og:title" content="x402agent — AI Agent Services">
-<meta property="og:description" content="Pay-per-query APIs built for AI agents. Powered by x402 micropayments on Base.">
-<meta property="og:url" content="https://x402agent.no/">
+<title>Norwegian Companies House — x402agent</title>
+<meta name="description" content="Look up any of 500,000+ Norwegian companies — board members, CEO, financials, industry codes. Data from Brønnøysundregistrene.">
+<link rel="canonical" href="https://x402agent.no/norwegian-companies-house/">
+<meta property="og:title" content="Norwegian Companies House — x402agent">
+<meta property="og:description" content="Look up any of 500,000+ Norwegian companies — board members, CEO, financials, industry codes. Data from Brønnøysundregistrene.">
+<meta property="og:url" content="https://x402agent.no/norwegian-companies-house/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <style>
@@ -108,74 +108,61 @@ footer a:hover{color:var(--text)}
 
 <div class="container">
 
-  <section class="hero">
-    <h1><span>x402</span>agent</h1>
-    <p>Pay-per-query APIs built for AI agents. No API keys, no subscriptions — just micropayments on Base.</p>
-    <div class="badge-row">
-      <span class="badge"><span class="dot"></span> x402 Protocol</span>
-      <span class="badge">USDC on Base</span>
-      <span class="badge">No Accounts Needed</span>
-      <span class="badge">From $0.01/query</span>
+  <a href="/" class="back">&larr; All Services</a>
+
+  <section class="detail-hero">
+    <span class="product-tag live">Live</span>
+    <h1>Norwegian Companies House</h1>
+    <p class="tagline">Company intelligence for 500,000+ Norwegian companies</p>
+    <div class="meta-row">
+      <span>From <strong>$0.01</strong>/query</span>
+      <span>USDC on Base</span>
+      <span>API: <strong><a href="https://norwegian-companies-house.fly.dev/">https://norwegian-companies-house.fly.dev/</a></strong></span>
+      
     </div>
   </section>
 
-  <section class="products">
-    <h2>Services</h2>
-    <div class="product-grid">
-      <div class="product">
-        <span class="product-tag live">Live</span>
-        <h3><a href="/norwegian-companies-house/">Norwegian Companies House</a></h3>
-        <p>Look up any of 500,000+ Norwegian companies — board members, CEO, financials, industry codes. Data from Brønnøysundregistrene.</p>
-        <div class="product-meta">
-          <span>From <strong>$0.01</strong>/query</span>
-          <span><strong>3</strong> endpoints</span>
-          <span>USDC on Base</span>
-        </div>
+  <section class="section">
+    <h2>Endpoints</h2>
+    <div class="endpoint">
+      <div class="ep-header">
+        <span class="method">GET</span>
+        <span class="path">/company/{org_nr}</span>
       </div>
-      <div class="product">
-        <span class="product-tag live">Live</span>
-        <h3><a href="/bhrefs/">bhrefs — SEO Tools</a></h3>
-        <p>Backlink discovery, competitive gap analysis, and email enrichment for AI agents. Powered by Common Crawl data.</p>
-        <div class="product-meta">
-          <span>From <strong>$0.05</strong>/query</span>
-          <span><strong>3</strong> endpoints</span>
-          <span>USDC on Base</span>
-        </div>
+      <div class="ep-desc">Full company details by organization number</div>
+      <div class="ep-price">Price: <strong>$0.01</strong></div>
+<div class="ep-example">curl https://norwegian-companies-house.fly.dev/company/923609016</div>
+<div class="ep-example">{&quot;name&quot;:&quot;EQUINOR ASA&quot;,&quot;type&quot;:&quot;ASA&quot;,&quot;employees&quot;:21376,...}</div>
+    </div>
+    <div class="endpoint">
+      <div class="ep-header">
+        <span class="method">GET</span>
+        <span class="path">/search?q={query}</span>
       </div>
+      <div class="ep-desc">Search companies by name</div>
+      <div class="ep-price">Price: <strong>$0.01</strong></div>
+<div class="ep-example">curl https://norwegian-companies-house.fly.dev/search?q=equinor</div>
+<div class="ep-example">[{&quot;org_nr&quot;:&quot;923609016&quot;,&quot;name&quot;:&quot;EQUINOR ASA&quot;,...}]</div>
+    </div>
+    <div class="endpoint">
+      <div class="ep-header">
+        <span class="method">GET</span>
+        <span class="path">/person/{name}</span>
+      </div>
+      <div class="ep-desc">Find companies by board member or CEO name</div>
+      <div class="ep-price">Price: <strong>$0.01</strong></div>
+<div class="ep-example">curl https://norwegian-companies-house.fly.dev/person/Anders%20Opedal</div>
+<div class="ep-example">[{&quot;org_nr&quot;:&quot;923609016&quot;,&quot;role&quot;:&quot;Daglig leder&quot;,...}]</div>
     </div>
   </section>
 
-  <section class="how">
-    <h2>How It Works</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h4>Request</h4>
-        <p>Your AI agent sends a GET request to any paid endpoint</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h4>Pay</h4>
-        <p>The server returns HTTP 402. Your agent signs a USDC micropayment on Base</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h4>Receive</h4>
-        <p>Resend with payment header — get structured data instantly</p>
-      </div>
+  <section class="section">
+    <h2>About</h2>
+    <div class="details-text">
+<p>Data sourced from Brønnøysundregistrene (the Norwegian Register of Business Enterprises). Updated regularly. Covers all active Norwegian companies including AS, ASA, NUF, ENK, and more.</p>
+<p>Returns structured JSON with company name, type, registration date, address, industry codes (NACE), number of employees, board members, CEO, and financial data where available.</p>
+
     </div>
-  </section>
-
-  <section class="protocol">
-    <h2>x402 Protocol</h2>
-    <p>The open standard for HTTP micropayments. Your agent pays per query with USDC — no API keys, no rate limits, no vendor lock-in.</p>
-    <div class="code-block"><span class="comment"># 1. Request data</span>
-curl https://norwegian-companies-house.fly.dev/company/923609016
-<span class="comment"># → 402 Payment Required</span>
-
-<span class="comment"># 2. Agent pays USDC, retries with payment header</span>
-<span class="status"># → 200 OK</span>
-{&quot;name&quot;:&quot;EQUINOR ASA&quot;,&quot;type&quot;:&quot;ASA&quot;,&quot;employees&quot;:21376,...}</div>
   </section>
 
 </div>

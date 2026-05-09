@@ -1,0 +1,78 @@
+[
+  {
+    "slug": "norwegian-companies-house",
+    "name": "Norwegian Companies House",
+    "tagline": "Company intelligence for 500,000+ Norwegian companies",
+    "description": "Look up any of 500,000+ Norwegian companies — board members, CEO, financials, industry codes. Data from Brønnøysundregistrene.",
+    "status": "live",
+    "url": "https://norwegian-companies-house.fly.dev/",
+    "repo": "apbopenclaw-boop/norwegian-companies-house",
+    "price": "$0.01",
+    "currency": "USDC on Base",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/company/{org_nr}",
+        "description": "Full company details by organization number",
+        "price": "$0.01",
+        "example_request": "curl https://norwegian-companies-house.fly.dev/company/923609016",
+        "example_response": "{\"name\":\"EQUINOR ASA\",\"type\":\"ASA\",\"employees\":21376,...}"
+      },
+      {
+        "method": "GET",
+        "path": "/search?q={query}",
+        "description": "Search companies by name",
+        "price": "$0.01",
+        "example_request": "curl https://norwegian-companies-house.fly.dev/search?q=equinor",
+        "example_response": "[{\"org_nr\":\"923609016\",\"name\":\"EQUINOR ASA\",...}]"
+      },
+      {
+        "method": "GET",
+        "path": "/person/{name}",
+        "description": "Find companies by board member or CEO name",
+        "price": "$0.01",
+        "example_request": "curl https://norwegian-companies-house.fly.dev/person/Anders%20Opedal",
+        "example_response": "[{\"org_nr\":\"923609016\",\"role\":\"Daglig leder\",...}]"
+      }
+    ],
+    "details": "Data sourced from Brønnøysundregistrene (the Norwegian Register of Business Enterprises). Updated regularly. Covers all active Norwegian companies including AS, ASA, NUF, ENK, and more.\n\nReturns structured JSON with company name, type, registration date, address, industry codes (NACE), number of employees, board members, CEO, and financial data where available."
+  },
+  {
+    "slug": "bhrefs",
+    "name": "bhrefs — SEO Tools",
+    "tagline": "Backlink discovery and competitive analysis for AI agents",
+    "description": "Backlink discovery, competitive gap analysis, and email enrichment for AI agents. Powered by Common Crawl data.",
+    "status": "live",
+    "url": "https://bhrefs.com/",
+    "domain": "bhrefs.com",
+    "price": "$0.05",
+    "currency": "USDC on Base",
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/backlinks/{domain}",
+        "description": "Get all backlinks for a domain",
+        "price": "$0.05",
+        "example_request": "curl https://bhrefs.com/backlinks/cognite.com",
+        "example_response": "[{\"source\":\"offshore-energy.biz\",\"target\":\"cognite.com\",...}]"
+      },
+      {
+        "method": "GET",
+        "path": "/referring-domains/{domain}",
+        "description": "Unique referring domains with authority scores",
+        "price": "$0.05",
+        "example_request": "curl https://bhrefs.com/referring-domains/cognite.com",
+        "example_response": "[{\"domain\":\"microsoft.com\",\"authority\":51,...}]"
+      },
+      {
+        "method": "GET",
+        "path": "/gap?domains={d1},{d2}",
+        "description": "Competitive backlink gap analysis",
+        "price": "$0.10",
+        "example_request": "curl https://bhrefs.com/gap?domains=cognite.com,siemens.com",
+        "example_response": "[{\"domain\":\"industryweek.com\",\"links_to\":[\"siemens.com\"],...}]"
+      }
+    ],
+    "details": "Built on Common Crawl data, refreshed periodically. Provides backlink profiles, referring domain lists with authority scoring, and competitive gap analysis.\n\nDesigned for AI agents doing SEO research, link prospecting, and competitive analysis. All responses are structured JSON."
+  }
+]
