@@ -86,7 +86,7 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
     </div>
     <div class="endpoint">
       <div class="ep-header"><span class="method">GET</span><span class="path">/property?knr={kommune}&amp;gnr={gnr}&amp;bnr={bnr}</span></div>
-      <div class="ep-desc">Cadastral property lookup by municipality code (kommunenummer), farm number (g&aring;rdsnummer), and holding number (bruksnummer).</div>
+      <div class="ep-desc">Cadastral property lookup by municipality code (kommunenummer), farm number (g&aring;rdsnummer), and holding number (bruksnummer). <em style="color:var(--amber)">⚠ Temporarily unavailable — Kartverket upstream maintenance.</em></div>
       <div class="ep-price">Price: <strong>$0.01</strong></div>
       <div class="ep-example">curl 'https://x402-norway-property.fly.dev/property?knr=0301&amp;gnr=208&amp;bnr=350'
 {"municipality":"Oslo","gnr":208,"bnr":350,"area_sqm":1250,"property_type":"Bolig"}</div>
