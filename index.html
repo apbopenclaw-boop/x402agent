@@ -239,8 +239,8 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
 
   /* Nav: hamburger */
   .hamburger{display:block}
-  nav .nav-links{position:fixed;top:64px;left:0;right:0;background:rgba(7,7,14,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);flex-direction:column;gap:0;padding:8px 0;border-bottom:1px solid var(--border);transform:translateY(-110%);transition:transform .25s ease;z-index:99}
-  nav .nav-links.open{transform:translateY(0)}
+  nav .nav-links{position:fixed;top:64px;left:0;right:0;background:rgba(7,7,14,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);flex-direction:column;gap:0;padding:8px 0;border-bottom:1px solid var(--border);transform:translateY(-110%);transition:transform .25s ease,visibility 0s .25s;z-index:99;visibility:hidden}
+  nav .nav-links.open{transform:translateY(0);visibility:visible;transition:transform .25s ease,visibility 0s}
   nav .nav-links a{padding:14px 24px;font-size:16px;width:100%;border-bottom:1px solid var(--border)}
   nav .nav-links a:last-child{border-bottom:none}
   nav .nav-cta{margin:12px 24px;text-align:center;display:block;border-bottom:none!important}
