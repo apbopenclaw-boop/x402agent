@@ -17,18 +17,42 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebSite",
-  "name":"x402agent",
-  "url":"https://x402agent.no/",
-  "description":"Pay-per-query APIs built for AI agents. Norwegian company data, SEO tools, and more.",
-  "potentialAction":{
-    "@type":"SearchAction",
-    "target":"https://x402agent.no/search?q={search_term_string}",
-    "query-input":"required name=search_term_string"
+[
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"x402agent",
+    "url":"https://x402agent.no/",
+    "description":"Pay-per-query APIs built for AI agents. Norwegian company data, SEO tools, weather, property, statistics, and IP search.",
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://x402agent.no/search?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  },
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"x402agent",
+    "url":"https://x402agent.no",
+    "description":"Norway's AI Agent API Gateway — pay-per-query Norwegian data APIs powered by x402 micropayments.",
+    "numberOfEmployees":{"@type":"QuantitativeValue","value":1},
+    "areaServed":"NO",
+    "knowsAbout":["Norwegian company data","SEO backlinks","Weather forecasting","Property registry","Economic statistics","Intellectual property search"]
+  },
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"What is x402agent?","acceptedAnswer":{"@type":"Answer","text":"x402agent.no is Norway's AI agent API gateway — a collection of Norwegian data APIs that any x402-compatible AI agent can pay for and use instantly. No API keys, no accounts, no subscriptions."}},
+      {"@type":"Question","name":"What is the x402 payment protocol?","acceptedAnswer":{"@type":"Answer","text":"x402 is an open protocol that lets AI agents pay for API access using cryptocurrency micropayments. When an agent hits a paid endpoint, it receives an HTTP 402 Payment Required response with pricing details."}},
+      {"@type":"Question","name":"How much do the APIs cost?","acceptedAnswer":{"@type":"Answer","text":"Pay-per-query pricing starts at $0.005 per request. Payments are in USDC on the Base network with sub-cent gas fees. No minimums, no commitments."}},
+      {"@type":"Question","name":"Do I need an API key or account?","acceptedAnswer":{"@type":"Answer","text":"No. All x402agent APIs are completely keyless. Any AI agent with a USDC wallet on Base can start making queries immediately."}},
+      {"@type":"Question","name":"Where does the data come from?","acceptedAnswer":{"@type":"Answer","text":"Each service uses official Norwegian data sources: Brønnøysundregistrene, Statistics Norway, Kartverket, Patentstyret, MET Norway, and Common Crawl."}},
+      {"@type":"Question","name":"Which AI agents support x402?","acceptedAnswer":{"@type":"Answer","text":"Any agent that can sign EIP-712 typed data and send HTTP requests. Coinbase AgentKit, Langchain with x402 middleware, and custom agents using x402 SDKs all work."}}
+    ]
   }
-}
+]
 </script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -134,6 +158,17 @@ nav .nav-cta:hover{background:#e2e2e8;color:#07070e}
 .code-block .comment{color:#444}
 .code-block .url{color:var(--accent2)}
 .code-block .status{color:var(--green)}
+
+/* ─── FAQ ─── */
+.faq{padding:0 0 80px}
+.faq-item{border-bottom:1px solid var(--border);max-width:720px;margin:0 auto}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:24px 0;cursor:pointer;font-size:16px;font-weight:600;color:var(--text);gap:16px;user-select:none}
+.faq-q:hover{color:var(--accent2)}
+.faq-q .faq-arrow{flex-shrink:0;transition:transform .2s;color:var(--muted);font-size:14px}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;color:var(--muted);font-size:14px;line-height:1.8}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a p{padding:0 0 24px}
 
 /* ─── Contact ─── */
 .contact{padding:80px 0;border-top:1px solid var(--border)}
@@ -262,6 +297,7 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
     <div class="nav-links">
       <a href="/#services">Services</a>
       <a href="/#how-it-works">How It Works</a>
+      <a href="/#faq">FAQ</a>
       <a href="/#contact">Contact</a>
       <a href="/#contact" class="nav-cta">Get in Touch</a>
     </div>
@@ -282,13 +318,13 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
     <div class="search-box">
       <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="text" placeholder="Try: Look up Equinor board members..." id="agent-search" autocomplete="off" onkeydown="if(event.key==='Enter')searchServices()">
-      <div id="search-results" class="search-results"></div>
       <div class="search-hint">
         <span class="hint" onclick="document.getElementById('agent-search').value=this.textContent">Find backlinks for cognite.com</span>
         <span class="hint" onclick="document.getElementById('agent-search').value=this.textContent">Who is CEO of Aker BP?</span>
         <span class="hint" onclick="document.getElementById('agent-search').value=this.textContent">Search Norwegian companies in oil &amp; gas</span>
       </div>
     </div>
+    <div id="search-results" class="search-results"></div>
   </div>
 </section>
 
@@ -430,6 +466,20 @@ $ curl https://norwegian-companies-house.fly.dev/company/923609016
 <span class="status"># → HTTP 200 OK</span>
 {&quot;name&quot;:&quot;EQUINOR ASA&quot;,&quot;type&quot;:&quot;ASA&quot;,&quot;employees&quot;:21376,...}</div>
     </div>
+  </div>
+</div>
+
+<div id="faq">
+  <div class="section-header">
+    <h2>Frequently Asked Questions</h2>
+  </div>
+  <div class="container faq">
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is x402agent?<span class="faq-arrow">&#9660;</span></div><div class="faq-a"><p>x402agent.no is Norway's AI agent API gateway — a collection of Norwegian data APIs that any x402-compatible AI agent can pay for and use instantly. No API keys, no accounts, no subscriptions. Just HTTP requests and USDC micropayments.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the x402 payment protocol?<span class="faq-arrow">&#9660;</span></div><div class="faq-a"><p>x402 is an open protocol that lets AI agents pay for API access using cryptocurrency micropayments. When an agent hits a paid endpoint, it receives an HTTP 402 Payment Required response with pricing details. The agent signs a USDC payment on the Base network and resends the request — all programmatically, in a single request cycle.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How much do the APIs cost?<span class="faq-arrow">&#9660;</span></div><div class="faq-a"><p>Pay-per-query pricing starts at $0.005 per request. Each endpoint has its own price clearly shown in the 402 response. Payments are in USDC on the Base network with sub-cent gas fees. No minimums, no commitments.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do I need an API key or account?<span class="faq-arrow">&#9660;</span></div><div class="faq-a"><p>No. All x402agent APIs are completely keyless. Any AI agent with a USDC wallet on Base can start making queries immediately. Free endpoints (like /health) require nothing at all.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Where does the data come from?<span class="faq-arrow">&#9660;</span></div><div class="faq-a"><p>Each service uses official Norwegian data sources: Br&oslash;nn&oslash;ysundregistrene (company data), Statistics Norway/SSB (economic statistics), Kartverket (mapping and property), Patentstyret (intellectual property), MET Norway (weather), and Common Crawl (SEO/backlinks).</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Which AI agents support x402?<span class="faq-arrow">&#9660;</span></div><div class="faq-a"><p>Any agent that can sign EIP-712 typed data and send HTTP requests can use x402. Coinbase's AgentKit, Langchain with x402 middleware, and custom agents using the x402 Python or TypeScript SDKs all work out of the box.</p></div></div>
   </div>
 </div>
 
