@@ -1,0 +1,32 @@
+{
+  "x402Version": 2,
+  "name": "x402agent.no",
+  "description": "AI agent services powered by x402: Norwegian business registry lookups and backlink analysis. Pay-per-request USDC on Base.",
+  "services": [
+    {
+      "name": "Norwegian Companies House",
+      "description": "Brønnøysundregistrene business data: company search, ownership, financials, roles, announcements.",
+      "baseUrl": "https://norwegian-companies-house.fly.dev",
+      "network": "eip155:8453",
+      "asset": "USDC",
+      "priceRange": "$0.001–$0.01 per request",
+      "wallet": "0x2D8cFC122D13971EEf8cfB4CBC047F527eB76FAd",
+      "docs": "https://x402agent.no/llms-full.txt"
+    },
+    {
+      "name": "Backlink Finder (bhrefs)",
+      "description": "SEO backlink analysis: crawl domains, find referring pages, analyze anchor text.",
+      "baseUrl": "https://backlink-finder.fly.dev",
+      "network": "eip155:8453",
+      "asset": "USDC",
+      "priceRange": "$0.001–$0.05 per request",
+      "wallet": "0x2D8cFC122D13971EEf8cfB4CBC047F527eB76FAd",
+      "docs": "https://x402agent.no/llms-full.txt"
+    }
+  ],
+  "links": {
+    "website": "https://x402agent.no",
+    "llms": "https://x402agent.no/llms.txt",
+    "github": "https://github.com/apbopenclaw-boop/x402agent"
+  }
+}
