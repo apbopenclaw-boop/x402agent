@@ -1,0 +1,231 @@
+# x402agent.no — Full API Reference
+
+> Norway's AI Agent API Gateway. Pay-per-query with USDC micropayments on Base via x402 protocol.
+
+## Payment Protocol
+
+All paid endpoints return HTTP 402 on first request. The response includes:
+- Header `payment-required`: base64-encoded JSON with payment requirements
+- Body: same requirements as JSON
+
+Payment requirements specify:
+- `scheme`: "exact"
+- `network`: "eip155:8453" (Base mainnet)
+- `asset`: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" (USDC on Base)
+- `amount`: price in USDC micro-units (6 decimals, e.g. "5000" = $0.005)
+- `payTo`: server wallet address
+- `maxTimeoutSeconds`: 300
+
+To pay: sign EIP-712 typed data with your wallet, then resend the request with:
+- Header `payment-signature`: the signed payment payload (base64 JSON)
+
+Python example:
+```python
+from eth_account import Account
+from x402 import x402ClientSync, x402ClientConfig, SchemeRegistration
+from x402.mechanisms.evm.exact import ExactEvmScheme
+from x402.http.clients.requests import wrapRequestsWithPayment
+import requests
+
+Account.enable_unaudited_hdwallet_features()
+acct = Account.from_mnemonic("your mnemonic here")
+config = x402ClientConfig(schemes=[
+    SchemeRegistration(network="eip155:8453", client=ExactEvmScheme(signer=acct))
+])
+client = x402ClientSync.from_config(config)
+session = wrapRequestsWithPayment(requests.Session(), client)
+
+# Now all requests auto-handle 402 payment
+resp = session.get("https://norwegian-companies-house.fly.dev/company/923609016")
+print(resp.json())
+```
+
+---
+
+## 1. Norwegian Companies House
+
+Base URL: `https://norwegian-companies-house.fly.dev`
+Source: Brønnøysundregistrene (official Norwegian company register)
+
+### GET /health
+Free. Returns service status.
+
+### GET /company/{org_number}
+Price: $0.01 USDC
+Lookup a company by 9-digit org number. Returns name, type, address, industry codes, employees, financials.
+Example: `GET /company/923609016` → Equinor ASA
+
+### GET /company/{org_number}/roles
+Price: $0.01 USDC
+Board members, CEO, chairman, and all registered roles for a company.
+Example: `GET /company/923609016/roles`
+
+### GET /search?q={query}
+Price: $0.01 USDC
+Search 500K+ Norwegian companies by name. Returns top matches with org numbers.
+Example: `GET /search?q=equinor`
+
+---
+
+## 2. bhrefs — SEO Tools
+
+Base URL: `https://backlink-finder.fly.dev`
+Source: Common Crawl data
+
+### GET /health
+Free. Returns service status.
+
+### GET /backlinks?domain={domain}
+Price: $0.05 USDC
+Find all backlinks for a domain. Returns referring domains, anchor text, link counts.
+Example: `GET /backlinks?domain=cognite.com`
+
+### GET /gap?domains={domain1},{domain2}
+Price: $0.05 USDC
+Competitive backlink gap analysis. Find domains linking to competitors but not to you.
+Example: `GET /gap?domains=cognite.com,aker.com`
+
+### GET /find?domain={domain}
+Price: $0.05 USDC
+Email enrichment — find contact emails associated with a domain.
+Example: `GET /find?domain=cognite.com`
+
+---
+
+## 3. Aurora — Norwegian Weather Intelligence
+
+Base URL: `https://x402-aurora.fly.dev`
+Source: MET Norway (Norwegian Meteorological Institute)
+
+### GET /health
+Free. Returns service status.
+
+### GET /forecast?lat={lat}&lon={lon}
+Price: $0.005 USDC
+Weather forecast for any coordinates in Norway. Returns current conditions, hourly and daily forecasts.
+Example: `GET /forecast?lat=59.91&lon=10.75`
+
+### GET /forecast/city?name={city}
+Price: $0.005 USDC
+Weather forecast by Norwegian city name. ~50 cities with fuzzy matching.
+Example: `GET /forecast/city?name=oslo`
+
+### GET /marine?lat={lat}&lon={lon}
+Price: $0.005 USDC
+Marine forecast for Scandinavian waters — wave height, wind, sea temperature.
+Example: `GET /marine?lat=60.0&lon=5.0`
+
+### GET /alerts
+Price: $0.005 USDC
+Active weather alerts for Norway (storms, floods, avalanche warnings).
+
+---
+
+## 4. Norwegian Statistics & Economics
+
+Base URL: `https://x402-norway-statistics.fly.dev`
+Source: Statistics Norway (SSB)
+
+### GET /health
+Free. Returns service status.
+
+### GET /population?municipality={name}
+Price: $0.01 USDC
+Population data by Norwegian municipality. Returns current population and historical data.
+Example: `GET /population?municipality=oslo`
+
+### GET /cpi
+Price: $0.01 USDC
+Consumer Price Index — latest CPI figures, year-over-year change, monthly index history.
+
+### GET /gdp
+Price: $0.01 USDC
+Quarterly GDP from SSB national accounts.
+
+---
+
+## 5. Norwegian Property & Address
+
+Base URL: `https://x402-norway-property.fly.dev`
+Source: Kartverket (Norwegian Mapping Authority)
+
+### GET /health
+Free. Returns service status.
+
+### GET /address?q={query}
+Price: $0.005 USDC
+Norwegian address lookup across all 356 municipalities.
+Example: `GET /address?q=Karl+Johans+gate+1`
+
+### GET /elevation?lat={lat}&lon={lon}
+Price: $0.005 USDC
+Elevation data from Kartverket's DTM1 terrain model. 1-metre resolution.
+Example: `GET /elevation?lat=61.6363&lon=8.3124`
+
+### GET /property?knr={knr}&gnr={gnr}&bnr={bnr}
+Price: $0.005 USDC
+Cadastral property lookup by municipality/plot numbers.
+Example: `GET /property?knr=0301&gnr=208&bnr=350`
+Note: Temporarily unavailable.
+
+---
+
+## 6. Norwegian IP Search
+
+Base URL: `https://x402-norway-patent-search.fly.dev`
+Source: Patentstyret (Norwegian Industrial Property Office)
+Status: Temporarily unavailable — upstream provider maintenance.
+
+### GET /health
+Free. Returns service status.
+
+### GET /trademark/search?q={query}
+Price: $0.01 USDC
+Search Norwegian trademark registry — status, owner, Nice classes, filing dates.
+
+### GET /patent/search?q={query}
+Price: $0.01 USDC
+Search Norwegian patent registry.
+
+### GET /design/search?q={query}
+Price: $0.01 USDC
+Search Norwegian industrial designs.
+
+---
+
+## 7. Norwegian Transport
+
+Base URL: `https://x402-norway-transport.fly.dev`
+Source: Entur (Norwegian public transport)
+
+### GET /health
+Free. Returns service status.
+
+### GET /stops?q={query}
+Price: $0.005 USDC
+Search Norwegian public transport stops by name.
+Example: `GET /stops?q=jernbanetorget`
+
+### GET /departures?stop={stop_id}
+Price: $0.005 USDC
+Real-time departures from a stop.
+
+### GET /journey?from={place}&to={place}
+Price: $0.005 USDC
+Journey planning between two places in Norway.
+Example: `GET /journey?from=oslo&to=bergen`
+
+---
+
+## Server Wallet
+
+All services share the same payment recipient:
+- Address: `0x2D8cFC122D13971EEf8cfB4CBC047F527eB76FAd`
+- Network: Base (eip155:8453)
+- Asset: USDC (`0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`)
+
+## Contact
+
+- Website: https://x402agent.no
+- Email: apbopenclaw@gmail.com
+- Protocol: https://x402.org

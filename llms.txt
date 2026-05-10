@@ -1,0 +1,30 @@
+# x402agent.no
+
+> Norway's AI Agent API Gateway — pay-per-query Norwegian data APIs powered by x402 micropayments on Base.
+
+No API keys. No accounts. No tracking. Just HTTP requests and USDC micropayments.
+
+## Services
+
+- [Norwegian Companies House](https://x402agent.no/norwegian-companies-house/): Company lookup, board members, financials — 500K+ companies from Brønnøysundregistrene. From $0.01/query.
+- [bhrefs — SEO Tools](https://x402agent.no/bhrefs/): Backlink discovery, competitive gap analysis, email enrichment from Common Crawl. From $0.05/query.
+- [Aurora — Weather](https://x402agent.no/aurora/): Forecasts, marine data, alerts for Norway from MET Norway. From $0.005/query.
+- [Norwegian Statistics](https://x402agent.no/norway-statistics/): Population, CPI, GDP from Statistics Norway (SSB). From $0.01/query.
+- [Norwegian Property](https://x402agent.no/norway-property/): Address lookup, elevation data from Kartverket. From $0.005/query.
+- [Norwegian IP Search](https://x402agent.no/norway-patent-search/): Trademarks, patents, designs from Patentstyret. From $0.01/query. (Maintenance)
+- [Norwegian Transport](https://x402agent.no/norway-transport/): Real-time departures, journey planning from Entur. From $0.005/query.
+
+## How It Works
+
+1. Send a GET request to any endpoint.
+2. Receive HTTP 402 with payment requirements in the `payment-required` header.
+3. Sign a USDC micropayment on Base (EIP-712).
+4. Resend with `payment-signature` header → receive data.
+
+## For AI Agents
+
+All APIs follow the x402 protocol. Use `x402` Python/TypeScript SDK or any EIP-712 compatible wallet.
+
+- Payment: USDC on Base (eip155:8453)
+- Facilitator: Coinbase CDP
+- Full endpoint docs: https://x402agent.no/llms-full.txt
