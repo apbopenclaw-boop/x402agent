@@ -70,25 +70,36 @@ Example: `GET /search?q=equinor`
 ## 2. bhrefs — SEO Tools
 
 Base URL: `https://backlink-finder.fly.dev`
-Source: Common Crawl data
+Source: Common Crawl Web Graph (109M domains, refreshed quarterly)
+
+Every backlink includes a `dr_score` (0–100) derived from harmonic centrality on a log-rank scale. Same shape as Ahrefs DR. Top 5M domains scored; long-tail returns `null`.
 
 ### GET /health
 Free. Returns service status.
 
+### GET /preview/{domain}
+Free. Top 5 backlinks with DR scores + target's own DR. Sanity-check before paying.
+Example: `GET /preview/nytimes.com`
+
 ### GET /backlinks?domain={domain}
 Price: $0.01 USDC
-Find all backlinks for a domain. Returns referring domains, anchor text, link counts.
-Example: `GET /backlinks?domain=cognite.com`
+Full backlinks list with `dr_score`, `harmonic_rank`, `pagerank`, `authority_score`, `num_hosts`, `majestic_rank`, `ref_subnets`, `ref_ips`, `tranco_rank`. Sorted by DR DESC.
+Example: `GET /backlinks?domain=nytimes.com`
 
-### GET /gap?domains={domain1},{domain2}
-Price: $0.05 USDC
-Competitive backlink gap analysis. Find domains linking to competitors but not to you.
-Example: `GET /gap?domains=cognite.com,aker.com`
+### GET /bundle?domain={domain}
+Price: $0.015 USDC
+Target's own DR profile (`target_dr_score`, `target_harmonic_rank`, `target_pagerank`) + full backlinks list. Combo deal.
+Example: `GET /bundle?domain=nytimes.com`
 
-### GET /find?domain={domain}
+### GET /gap?yours={domain1}&competitor={domain2}
+Price: $0.10 USDC
+Domains linking to competitor but not to you. Each entry includes DR.
+Example: `GET /gap?yours=cognite.com&competitor=aker.com`
+
+### GET /find?first_name=…&last_name=…&domain=…
 Price: $0.05 USDC
-Email enrichment — find contact emails associated with a domain.
-Example: `GET /find?domain=cognite.com`
+Email finder — find a verified business email for a person.
+Example: `GET /find?first_name=John&last_name=Smith&domain=acme.com`
 
 ---
 

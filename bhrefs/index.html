@@ -8,11 +8,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<title>bhrefs — SEO Tools — x402agent</title>
-<meta name="description" content="Backlink discovery, competitive gap analysis, and email enrichment for AI agents. Powered by Common Crawl data.">
+<title>bhrefs — DR-Scored Backlinks API for AI Agents, $0.01/query</title>
+<meta name="description" content="Pay-per-query backlink data with Domain Rating (0–100) for every linking site. Free preview, USDC via x402, no API keys.">
 <link rel="canonical" href="https://x402agent.no/bhrefs/">
-<meta property="og:title" content="bhrefs — SEO Tools — x402agent">
-<meta property="og:description" content="Backlink discovery, competitive gap analysis, and email enrichment for AI agents. Powered by Common Crawl data.">
+<meta property="og:title" content="bhrefs — DR-Scored Backlinks API for AI Agents">
+<meta property="og:description" content="Backlinks + DR for $0.01. Same shape as Ahrefs DR, from open Common Crawl data. Built for AI agents.">
 <meta property="og:url" content="https://x402agent.no/bhrefs/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -249,9 +249,9 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
   <section class="detail-hero">
     <span class="product-tag live">Live</span>
     <h1>bhrefs — SEO Tools</h1>
-    <p class="tagline">Backlink discovery and competitive analysis for AI agents</p>
+    <p class="tagline">Backlinks with Domain Rating, $0.01 per query</p>
     <div class="meta-row">
-      <span>From <strong>$0.05</strong>/query</span>
+      <span>From <strong>$0.01</strong>/query</span>
       <span>USDC on Base</span>
       <span>API: <strong><a href="https://bhrefs.com/">https://bhrefs.com/</a></strong></span>
       <span>Domain: <strong>bhrefs.com</strong></span>
@@ -263,43 +263,96 @@ footer .footer-links{margin-bottom:16px;display:flex;gap:24px;justify-content:ce
     <div class="endpoint">
       <div class="ep-header">
         <span class="method">GET</span>
-        <span class="path">/backlinks/{domain}</span>
+        <span class="path">/backlinks?domain={domain}</span>
       </div>
-      <div class="ep-desc">Get all backlinks for a domain</div>
+      <div class="ep-desc">Full backlinks list with DR score (0–100), harmonic rank, PageRank, plus existing signals (Majestic, Tranco, authority_score, ref_subnets, ref_ips). Sorted by DR descending.</div>
       <div class="ep-price">Price: <strong>$0.01</strong></div>
-<div class="ep-example">curl https://bhrefs.com/backlinks/cognite.com</div>
-<div class="ep-example">[{&quot;source&quot;:&quot;offshore-energy.biz&quot;,&quot;target&quot;:&quot;cognite.com&quot;,...}]</div>
+<div class="ep-example"><span class="comment"># Free preview first — includes target DR + per-linker DR</span>
+curl https://backlink-finder.fly.dev/preview/nytimes.com
+
+<span class="comment"># Paid: full backlinks list — $0.01 USDC</span>
+curl https://backlink-finder.fly.dev/backlinks?domain=nytimes.com \
+     -H "X-Payment: &lt;eip3009-payload&gt;"</div>
     </div>
     <div class="endpoint">
       <div class="ep-header">
         <span class="method">GET</span>
-        <span class="path">/referring-domains/{domain}</span>
+        <span class="path">/bundle?domain={domain}</span>
       </div>
-      <div class="ep-desc">Unique referring domains with authority scores</div>
-      <div class="ep-price">Price: <strong>$0.05</strong></div>
-<div class="ep-example">curl https://bhrefs.com/referring-domains/cognite.com</div>
-<div class="ep-example">[{&quot;domain&quot;:&quot;microsoft.com&quot;,&quot;authority&quot;:51,...}]</div>
+      <div class="ep-desc">Target's own DR profile + the full backlinks list with per-linker DR. The combo deal — saves vs buying separately.</div>
+      <div class="ep-price">Price: <strong>$0.015</strong></div>
+<div class="ep-example"><span class="comment"># Paid combo: target DR + backlinks — $0.015 USDC</span>
+curl https://backlink-finder.fly.dev/bundle?domain=nytimes.com \
+     -H "X-Payment: &lt;eip3009-payload&gt;"</div>
     </div>
     <div class="endpoint">
       <div class="ep-header">
         <span class="method">GET</span>
-        <span class="path">/gap?domains={d1},{d2}</span>
+        <span class="path">/gap?yours={d1}&amp;competitor={d2}</span>
       </div>
-      <div class="ep-desc">Competitive backlink gap analysis</div>
+      <div class="ep-desc">Domains linking to competitor but not to you. Each gap entry includes DR.</div>
       <div class="ep-price">Price: <strong>$0.10</strong></div>
-<div class="ep-example">curl https://bhrefs.com/gap?domains=cognite.com,siemens.com</div>
-<div class="ep-example">[{&quot;domain&quot;:&quot;industryweek.com&quot;,&quot;links_to&quot;:[&quot;siemens.com&quot;],...}]</div>
+<div class="ep-example">curl https://backlink-finder.fly.dev/gap?yours=cognite.com&amp;competitor=siemens.com</div>
+    </div>
+    <div class="endpoint">
+      <div class="ep-header">
+        <span class="method">GET</span>
+        <span class="path">/find?first_name=…&amp;last_name=…&amp;domain=…</span>
+      </div>
+      <div class="ep-desc">Email finder — find a verified business email for a person.</div>
+      <div class="ep-price">Price: <strong>$0.05</strong></div>
+<div class="ep-example">curl "https://backlink-finder.fly.dev/find?first_name=John&amp;last_name=Smith&amp;domain=acme.com"</div>
+    </div>
+    <div class="endpoint">
+      <div class="ep-header">
+        <span class="method">GET</span>
+        <span class="path">/preview/{domain}</span>
+      </div>
+      <div class="ep-desc">Free preview — top 5 backlinks with DR scores + target's own DR. Check the DR distribution before paying.</div>
+      <div class="ep-price">Price: <strong>Free</strong></div>
+<div class="ep-example">curl https://backlink-finder.fly.dev/preview/nytimes.com</div>
     </div>
   </section>
 
   
 
   <section class="section">
-    <h2>About</h2>
+    <h2>Features</h2>
     <div class="details-text">
-<p>Built on Common Crawl data, refreshed periodically. Provides backlink profiles, referring domain lists with authority scoring, and competitive gap analysis.</p>
-<p>Designed for AI agents doing SEO research, link prospecting, and competitive analysis. All responses are structured JSON.</p>
+<p><strong>DR per linker.</strong> 0–100 Domain Rating for every linking domain, same log-rank shape as Ahrefs DR. Sorted strongest first.</p>
+<p><strong>DR per target.</strong> <code>/bundle</code> returns the queried domain's own DR alongside its backlinks.</p>
+<p><strong>Free preview with DR.</strong> <code>/preview/{domain}</code> is free and shows the top 5 backlinks <strong>with DR</strong> plus the target's DR — sanity-check before paying.</p>
+<p><strong>Open data, no API keys.</strong> DR comes from the Common Crawl Web Graph (<code>cc-main-2025-feb-mar-apr</code>, 109M domains, refreshed quarterly). Verifiable, transparent, not a black box.</p>
+<p><strong>$0.01 per query.</strong> 10× cheaper than before. Combo deal at $0.015.</p>
+    </div>
+  </section>
 
+  <section class="section">
+    <h2>How does this DR compare to Ahrefs?</h2>
+    <div class="details-text">
+<p>Both Ahrefs DR and our <code>dr_score</code> rank domains 0–100 on a logarithmic scale of backlink authority. The headline difference is the source crawl: Ahrefs uses their private crawler; we use the public Common Crawl Web Graph. For most well-known domains the scores agree within 10–15 points; the very long tail (rank > 5M) is <code>null</code> rather than scored.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Response Shape</h2>
+    <div class="details-text">
+<div class="ep-example">{"domain": "nytimes.com",
+ "target_dr_score": 78,           <span class="comment">// /bundle only</span>
+ "target_harmonic_rank": 63,      <span class="comment">// /bundle only</span>
+ "backlink_count": 182104,
+ "backlinks": [
+   {"linking_domain": "googleapis.com",
+    "dr_score": 100,
+    "harmonic_rank": 1,
+    "pagerank": 0.01435,
+    "authority_score": 52,
+    "num_hosts": 2899,
+    "majestic_rank": null,
+    "ref_subnets": null,
+    "ref_ips": null,
+    "tranco_rank": null}
+ ]}</div>
     </div>
   </section>
 </div>

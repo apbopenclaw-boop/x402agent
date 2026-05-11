@@ -7,7 +7,7 @@ No API keys. No accounts. No tracking. Just HTTP requests and USDC micropayments
 ## Services
 
 - [Norwegian Companies House](https://x402agent.no/norwegian-companies-house/): Company lookup, board members, financials — 500K+ companies from Brønnøysundregistrene. From $0.01/query.
-- [bhrefs — SEO Tools](https://x402agent.no/bhrefs/): Backlink discovery, competitive gap analysis, email enrichment from Common Crawl. From $0.01/query.
+- [bhrefs — SEO Tools](https://x402agent.no/bhrefs/): Backlinks with Domain Rating (0–100), competitive gap analysis, email enrichment. DR per linker + target, free preview. From $0.01/query.
 - [Aurora — Weather](https://x402agent.no/aurora/): Forecasts, marine data, alerts for Norway from MET Norway. From $0.005/query.
 - [Norwegian Statistics](https://x402agent.no/norway-statistics/): Population, CPI, GDP from Statistics Norway (SSB). From $0.01/query.
 - [Norwegian Property](https://x402agent.no/norway-property/): Address lookup, elevation data from Kartverket. From $0.005/query.

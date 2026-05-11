@@ -40,8 +40,8 @@
   {
     "slug": "bhrefs",
     "name": "bhrefs — SEO Tools",
-    "tagline": "Backlink discovery and competitive analysis for AI agents",
-    "description": "Backlink discovery, competitive gap analysis, and email enrichment for AI agents. Powered by Common Crawl data.",
+    "tagline": "Backlinks with Domain Rating, $0.01 per query",
+    "description": "Backlink data with Domain Rating (0–100) for every linking site. Competitive gap analysis and email enrichment. Free preview with DR. Powered by Common Crawl Web Graph.",
     "status": "live",
     "url": "https://bhrefs.com/",
     "domain": "bhrefs.com",
@@ -50,30 +50,45 @@
     "endpoints": [
       {
         "method": "GET",
-        "path": "/backlinks/{domain}",
-        "description": "Get all backlinks for a domain",
+        "path": "/backlinks?domain={domain}",
+        "description": "Full backlinks list with DR score (0–100), harmonic rank, PageRank, sorted by DR DESC",
         "price": "$0.01",
-        "example_request": "curl https://bhrefs.com/backlinks/cognite.com",
-        "example_response": "[{\"source\":\"offshore-energy.biz\",\"target\":\"cognite.com\",...}]"
+        "example_request": "curl https://backlink-finder.fly.dev/backlinks?domain=nytimes.com",
+        "example_response": "{\"domain\":\"nytimes.com\",\"backlink_count\":182104,\"backlinks\":[{\"linking_domain\":\"googleapis.com\",\"dr_score\":100,\"harmonic_rank\":1,...}]}"
       },
       {
         "method": "GET",
-        "path": "/referring-domains/{domain}",
-        "description": "Unique referring domains with authority scores",
-        "price": "$0.05",
-        "example_request": "curl https://bhrefs.com/referring-domains/cognite.com",
-        "example_response": "[{\"domain\":\"microsoft.com\",\"authority\":51,...}]"
+        "path": "/bundle?domain={domain}",
+        "description": "Target's own DR + full backlinks list with per-linker DR. Combo deal.",
+        "price": "$0.015",
+        "example_request": "curl https://backlink-finder.fly.dev/bundle?domain=nytimes.com",
+        "example_response": "{\"domain\":\"nytimes.com\",\"target_dr_score\":78,\"backlink_count\":182104,\"backlinks\":[...]}"
       },
       {
         "method": "GET",
-        "path": "/gap?domains={d1},{d2}",
-        "description": "Competitive backlink gap analysis",
+        "path": "/gap?yours={d1}&competitor={d2}",
+        "description": "Domains linking to competitor but not to you, with DR per entry",
         "price": "$0.10",
-        "example_request": "curl https://bhrefs.com/gap?domains=cognite.com,siemens.com",
-        "example_response": "[{\"domain\":\"industryweek.com\",\"links_to\":[\"siemens.com\"],...}]"
+        "example_request": "curl 'https://backlink-finder.fly.dev/gap?yours=cognite.com&competitor=siemens.com'",
+        "example_response": "{\"gap_count\":847,\"opportunities\":[{\"domain\":\"techcrunch.com\",\"authority_score\":89}]}"
+      },
+      {
+        "method": "GET",
+        "path": "/find?first_name=…&last_name=…&domain=…",
+        "description": "Email finder — verified business email for a person",
+        "price": "$0.05",
+        "example_request": "curl 'https://backlink-finder.fly.dev/find?first_name=John&last_name=Smith&domain=acme.com'",
+        "example_response": "{\"email\":\"john.smith@acme.com\",\"confidence\":0.92}"
+      },
+      {
+        "method": "GET",
+        "path": "/preview/{domain}",
+        "description": "Free preview — top 5 backlinks with DR + target DR",
+        "price": "free",
+        "example_request": "curl https://backlink-finder.fly.dev/preview/nytimes.com"
       }
     ],
-    "details": "Built on Common Crawl data, refreshed periodically. Provides backlink profiles, referring domain lists with authority scoring, and competitive gap analysis.\n\nDesigned for AI agents doing SEO research, link prospecting, and competitive analysis. All responses are structured JSON."
+    "details": "Every /backlinks response includes a dr_score (0–100) for each linking domain, derived from Common Crawl Web Graph harmonic centrality on a log-rank scale. Top 5M domains covered. Free /preview shows DR before you pay.\n\nDesigned for AI agents doing SEO research, link prospecting, and competitive analysis. All responses are structured JSON."
   },
   {
     "slug": "aurora",
