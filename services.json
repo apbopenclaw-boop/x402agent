@@ -45,14 +45,14 @@
     "status": "live",
     "url": "https://bhrefs.com/",
     "domain": "bhrefs.com",
-    "price": "$0.05",
+    "price": "$0.01",
     "currency": "USDC on Base",
     "endpoints": [
       {
         "method": "GET",
         "path": "/backlinks/{domain}",
         "description": "Get all backlinks for a domain",
-        "price": "$0.05",
+        "price": "$0.01",
         "example_request": "curl https://bhrefs.com/backlinks/cognite.com",
         "example_response": "[{\"source\":\"offshore-energy.biz\",\"target\":\"cognite.com\",...}]"
       },

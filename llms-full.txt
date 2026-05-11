@@ -76,7 +76,7 @@ Source: Common Crawl data
 Free. Returns service status.
 
 ### GET /backlinks?domain={domain}
-Price: $0.05 USDC
+Price: $0.01 USDC
 Find all backlinks for a domain. Returns referring domains, anchor text, link counts.
 Example: `GET /backlinks?domain=cognite.com`
 
